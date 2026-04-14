@@ -1,57 +1,29 @@
-# การติดตั้งสภาพแวดล้อมสำหรับ Windows (WSL2 Edition)
+# คู่มือการติดตั้งสภาพแวดล้อม (Universal Setup Guide)
 
-คู่มือนี้สำหรับผู้ใช้ Windows 10/11 เพื่อติดตั้งระบบที่รองรับการทำ Workshop ด้วย **Bun** และ **Claude Code** โดยใช้ **WSL2 (Windows Subsystem for Linux)** เป็นหัวใจหลัก
+คู่มือนี้สำหรับผู้ใช้ทุกคน (Windows/macOS/Linux) เพื่อติดตั้งระบบที่รองรับการทำ Workshop **AI-Accelerated Software Development**
 
 ---
 
-## 1. การติดตั้ง WSL2 และ Ubuntu 24.04
+## 1. การเตรียมตัว (Windows/WSL Only)
 
-เราจะใช้ Ubuntu เป็นระบบปฏิบัติการหลักในการรัน AI Agent
+หากคุณใช้ Windows เราจะใช้ **WSL2 (Windows Subsystem for Linux)** เพื่อให้ได้ประสบการณ์เดียวกับ Linux/macOS
 
-### 1.1 เปิด PowerShell ด้วยสิทธิ์ Administrator
-1. กดปุ่ม `Windows + R`
-2. พิมพ์ `powershell`
-3. กด `Ctrl + Shift + Enter` เพื่อรันเป็น Administrator
-
-### 1.2 ติดตั้ง WSL
-รันคำสั่งต่อไปนี้ใน PowerShell:
-
+### 1.1 ติดตั้ง WSL และ Ubuntu
+เปิด PowerShell (Administrator) แล้วรัน:
 ```powershell
-# อัปเดต WSL
 wsl --update
-
-# ติดตั้ง Ubuntu (เวอร์ชันมาตรฐาน)
 wsl --install -d Ubuntu-24.04
 ```
-
-*เมื่อติดตั้งเสร็จ เครื่องอาจจะบังคับให้ Restart 1 รอบ*
-
-### 1.3 ตั้งค่าคอนฟิกเริ่มต้น
-เมื่อเปิด Ubuntu ขึ้นมาครั้งแรก ระบบจะให้ตั้ง **Username** และ **Password**
-> **Note:** ตอนพิมพ์ Password ตัวอักษรจะไม่ปรากฏบนหน้าจอ (พิมพ์ไปได้เลยแล้วกด Enter)
-
-อัปเดตระบบให้เป็นปัจจุบัน:
-```bash
-sudo apt update && sudo apt upgrade -y
-```
+*เมื่อเสร็จแล้ว ให้ตั้ง Username และ Password ใน Ubuntu Terminal*
 
 ---
 
-## 2. ติดตั้ง Windows Terminal (แนะนำ)
+## 2. ติดตั้ง Runtime หลัก (Shared - ทุกระบบ)
 
-เพื่อประสบการณ์การใช้งานที่ดีที่สุด ควรใช้ Windows Terminal แทน Command Prompt เดิม
-- ดาวน์โหลดจาก Microsoft Store: [Windows Terminal](https://aka.ms/terminal)
-- ตั้งค่า **Default Profile** เป็น "Ubuntu-24.04"
+เราใช้ **Bun** เป็นเครื่องยนต์หลักในการรันโปรเจกต์และ AI Agent
 
----
-
-## 3. ติดตั้งเครื่องมือหลัก (Bun & Claude Code)
-
-ใน Workshop นี้เราจะใช้ **Bun** แทน npm เพราะเร็วกว่าและรองรับการทำงานของ Agent ได้ดีกว่า
-
-### 3.1 ติดตั้ง Bun
-รันคำสั่งนี้ใน Ubuntu Terminal:
 ```bash
+# ติดตั้ง Bun
 curl -fsSL https://bun.com/install | bash
 source ~/.bashrc
 ```
@@ -61,90 +33,91 @@ source ~/.bashrc
 bun --version  # ควรได้ 1.x.x ขึ้นไป
 ```
 
-### 3.2 ติดตั้ง Claude Code CLI (WSL Only — Paste Bug Fix)
-เนื่องจากเวอร์ชันล่าสุดมี bug ที่ทำให้วางรหัสยืนยันไม่ได้ใน WSL ให้ติดตั้งเวอร์ชันที่เสถียรด้วย Bun ดังนี้:
+---
 
+## 3. ติดตั้ง Claude Code CLI (สาขาแยกตามระบบ)
+
+ขั้นตอนนี้สำคัญมากสำหรับผู้ใช้ Windows เพื่อหลีกเลี่ยง Bug ในการวางรหัสยืนยัน (Paste Bug)
+
+### 🌿 สำหรับ Windows (WSL2) - RECOMMENDED
+รันคำสั่งนี้เพื่อติดตั้งเวอร์ชันที่เสถียรสำหรับ WSL:
 ```bash
-# ลบเวอร์ชันเก่าออกก่อน (ถ้ามี)
+# ลบเวอร์ชันเดิม (ถ้ามี)
 npm uninstall -g @anthropic-ai/claude-code
 
 # ติดตั้งเวอร์ชัน 2.1.104
 bun install -g @anthropic-ai/claude-code@2.1.104
 ```
 
-**เริ่มต้นใช้งาน:**
+### 🍎 สำหรับ macOS / Linux
+รันคำสั่งติดตั้งมาตรฐาน:
+```bash
+curl -fsSL https://cdn.anthropic.com/claude-code/install.sh | sh
+```
+
+### 🚀 เริ่มต้นใช้งาน (ทุกระบบ)
 ```bash
 claude
-```
-
-**อัปเกรดเป็นเวอร์ชันล่าสุด (Optional - หลังจาก Login สำเร็จ):**
-```bash
-claude update
-```
-
-**ตรวจสอบความพร้อม:**
-```bash
-claude doctor
+# ทำตามขั้นตอน Login บนหน้าจอ
 ```
 
 ---
 
-## 4. ติดตั้งเครื่องมือเสริมสำหรับ Workshop (Surgical Utilities)
+## 4. ติดตั้ง Editor และ Extensions (Shared)
 
-เครื่องมือเหล่านี้จะช่วยเพิ่มประสิทธิภาพให้ AI Agent ของคุณ
-
-### 4.1 Git (สำคัญมาก)
-```bash
-sudo apt install -y git
-```
-
-### 4.2 GSD Framework (Spec-Driven Development)
-```bash
-bun add -g get-shit-done-cc
-```
-
-### 4.3 เครื่องมือช่วยจำและวิเคราะห์ (Power-Ups)
-```bash
-# ติดตั้ง mempalace (Persistent memory)
-bun add -g mempalace
-
-# ติดตั้ง code-review-graph (AST analysis)
-sudo apt install -y python3-pip
-pip install code-review-graph --break-system-packages
-
-# ติดตั้ง CPR (Session Management)
-git clone https://github.com/EliaAlberti/cpr-compress-preserve-resume ~/.claude/commands/cpr
-```
-
-### 4.4 Agent Skills (ติดตั้งใน Claude Code)
-เปิด `claude` แล้วรันคำสั่งเหล่านี้:
-```bash
-/plugin install thedotmack/claude-mem    # ระบบความจำเสริม
-bunx skillsadd caveman                   # ลด Token usage 65%
-```
+1. ติดตั้ง [VS Code](https://code.visualstudio.com/)
+2. **สำหรับ Windows**: ติดตั้ง Extension ชื่อ **"WSL"**
+3. **Claude Extension**: ค้นหา "Claude" ใน Marketplace และติดตั้งเวอร์ชันทางการจาก **Anthropic** (หรือ Claude Dev)
 
 ---
 
-## 5. การจัดการไฟล์ระหว่าง Windows และ WSL
+## ⚔️ คลังแสงวิศวกร (The Surgical Arsenal)
 
-คุณสามารถเข้าถึงไฟล์ใน Ubuntu ได้ง่ายๆ ผ่าน VS Code
-1. ติดตั้ง [VS Code](https://code.visualstudio.com/) ใน Windows
-2. ติดตั้ง Extension ชื่อ **"WSL"**
-3. ใน Ubuntu Terminal พิมพ์ `code .` เพื่อเปิดโปรเจกต์
+เครื่องมือเสริมประสิทธิภาพที่จะช่วยให้ AI Agent ของคุณทำงานได้เหมือนมืออาชีพ (ติดตั้งตาม Session ใน Workshop)
 
-### 5.1 การติดตั้ง VS Code Extension (Claude)
-เพิ่มพลัง AI เข้าไปใน Editor ของคุณ:
-1. เปิด VS Code ใน Windows
-2. กด `Ctrl + Shift + X` (Extension Marketplace)
-3. ค้นหาคำว่า **"Claude"**
-4. เลือกติดตั้ง Extension ของ **Anthropic** (หรือตัวที่ Instructor แนะนำ)
-5. ทำการ Sign-in หรือระบุ API Key ตามคำแนะนำบนหน้าจอ
+### ⚡ เพิ่มประสิทธิภาพ (Session 1-2)
+- **RTK (Context Filter)**: กรองไฟล์ที่ไม่จำเป็นออกอัตโนมัติ
+  ```bash
+  curl -fsSL https://raw.githubusercontent.com/rtk-ai/rtk/refs/heads/master/install.sh | sh
+  rtk init -g
+  ```
+- **Caveman (Token Saver)**: ลด Token usage ลง 65% สำหรับงานง่ายๆ
+  ```bash
+  bunx skillsadd caveman
+  ```
+
+### 🛡️ ความปลอดภัยและวิชาการ (Session 4-6)
+- **Official Plugins**: ติดตั้งภายใน Claude Code
+  ```bash
+  /plugin install security-guidance
+  /plugin install code-review
+  ```
+- **Claude-Mem (Memory Protocol)**: ระบบความจำระยะยาว
+  ```bash
+  /plugin install thedotmack/claude-mem
+  ```
+- **CPR (Context Preservation)**: กู้คืนบริบทงานได้อย่างรวดเร็ว
+  ```bash
+  git clone https://github.com/EliaAlberti/cpr-compress-preserve-resume ~/.claude/commands/cpr
+  ```
+- **code-review-graph (AST Analysis)**: วิเคราะห์โครงสร้างโค้ดเชิงลึก
+  ```bash
+  sudo apt install -y python3-pip  # สำหรับ WSL/Ubuntu
+  pip install code-review-graph --break-system-packages
+  ```
+
+### 🎨 สถาปัตยกรรม (Architecture)
+- **Hookify**: สร้าง Custom Workflow ของคุณเอง
+  ```bash
+  /plugin install hookify@claude-plugins-official
+  ```
+- **Claude Wizard**: ระบบแนะนำการทำงานแบบ 8-Phase
+  ```bash
+  curl -sL https://raw.githubusercontent.com/vlad-ko/claude-wizard/main/install.sh | bash
+  ```
 
 ---
 
-## 6. ภาคผนวก: การออกจาก Editor เมื่อติดค้าง
-
-หากคุณหลงเข้าไปใน Text Editor ใน Terminal แล้วออกไม่ได้:
-- **nano**: กด `Ctrl + X` → กด `Y` → กด `Enter`
-- **vim**: กด `Esc` → พิมพ์ `:q!` → กด `Enter`
-- **emacs**: กด `Ctrl + X` ตามด้วย `Ctrl + C`
+## ภาคผนวก: การออกจาก Editor
+- **nano**: `Ctrl + X` → `Y` → `Enter`
+- **vim**: `Esc` → `:q!` → `Enter`
