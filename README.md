@@ -61,10 +61,25 @@ source ~/.bashrc
 bun --version  # ควรได้ 1.x.x ขึ้นไป
 ```
 
-### 3.2 ติดตั้ง Claude Code CLI
-ติดตั้งอาวุธหลักของเรา:
+### 3.2 ติดตั้ง Claude Code CLI (WSL Only — Paste Bug Fix)
+เนื่องจากเวอร์ชันล่าสุดมี bug ที่ทำให้วางรหัสยืนยันไม่ได้ใน WSL ให้ติดตั้งเวอร์ชันที่เสถียรด้วย Bun ดังนี้:
+
 ```bash
-curl -fsSL https://cdn.anthropic.com/claude-code/install.sh | sh
+# ลบเวอร์ชันเก่าออกก่อน (ถ้ามี)
+npm uninstall -g @anthropic-ai/claude-code
+
+# ติดตั้งเวอร์ชัน 2.1.104
+bun install -g @anthropic-ai/claude-code@2.1.104
+```
+
+**เริ่มต้นใช้งาน:**
+```bash
+claude
+```
+
+**อัปเกรดเป็นเวอร์ชันล่าสุด (Optional - หลังจาก Login สำเร็จ):**
+```bash
+claude update
 ```
 
 **ตรวจสอบความพร้อม:**
