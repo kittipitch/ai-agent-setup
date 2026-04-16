@@ -45,8 +45,8 @@ curl -fsSL https://fnm.vercel.app/install | bash
 source ~/.bashrc
 
 # ติดตั้ง Node.js (npm จะมากับ Node.js อัตโนมัติ)
-fnm install 22
-fnm use 22
+fnm install 24
+fnm use 24
 ```
 
 ---
