@@ -45,7 +45,7 @@ bun --version  # ควรได้ 1.x.x ขึ้นไป
 ติดตั้งเวอร์ชันล่าสุด (2.1.112) ด้วยคำสั่งเดียว - รองรับทุกระบบ (macOS/Linux/WSL):
 
 ```bash
-curl -fsSL https://cdn.anthropic.com/claude-code/install.sh | sh
+curl -fsSL https://claude.ai/install.sh | sh
 ```
 
 ### 🚀 เริ่มต้นใช้งาน (ทุกระบบ)
