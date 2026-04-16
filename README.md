@@ -38,7 +38,7 @@ source ~/.bashrc
 bun --version  # ควรได้ 1.x.x ขึ้นไป
 ```
 
-**ตัวเลือกเพิ่มเติม (Optional):** หากต้องการใช้ Node.js + npm แบบสลับเวอร์ชันได้:
+**ติดตั้ง Node.js + npm (จำเป็นสำหรับ Claude Code Plugins):**
 ```bash
 # ติดตั้ง fnm (Fast Node Manager)
 curl -fsSL https://fnm.vercel.app/install | bash
