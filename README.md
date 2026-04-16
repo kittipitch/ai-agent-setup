@@ -87,7 +87,7 @@ claude
   ```
 - **Caveman (Token Saver)**: ลด Token usage ลง 65% สำหรับงานง่ายๆ
   ```bash
-  bunx skillsadd caveman
+  npx pi-caveman
   ```
 
 ### 🛡️ ความปลอดภัยและวิชาการ (Session 4-6)
