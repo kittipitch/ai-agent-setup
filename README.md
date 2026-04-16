@@ -22,6 +22,11 @@ wsl --install -d Ubuntu-24.04
 
 เราใช้ **Bun** เป็นเครื่องยนต์หลักในการรันโปรเจกต์และ AI Agent
 
+**สำหรับ WSL/Ubuntu:** ติดตั้ง `unzip` ก่อน (Bun ต้องการ):
+```bash
+sudo apt update && sudo apt install -y unzip
+```
+
 ```bash
 # ติดตั้ง Bun
 curl -fsSL https://bun.com/install | bash
@@ -35,22 +40,10 @@ bun --version  # ควรได้ 1.x.x ขึ้นไป
 
 ---
 
-## 3. ติดตั้ง Claude Code CLI (สาขาแยกตามระบบ)
+## 3. ติดตั้ง Claude Code CLI (ทุกระบบ)
 
-ขั้นตอนนี้สำคัญมากสำหรับผู้ใช้ Windows เพื่อหลีกเลี่ยง Bug ในการวางรหัสยืนยัน (Paste Bug)
+ติดตั้งเวอร์ชันล่าสุด (2.1.112) ด้วยคำสั่งเดียว - รองรับทุกระบบ (macOS/Linux/WSL):
 
-### 🌿 สำหรับ Windows (WSL2) - RECOMMENDED
-รันคำสั่งนี้เพื่อติดตั้งเวอร์ชันที่เสถียรสำหรับ WSL:
-```bash
-# ลบเวอร์ชันเดิม (ถ้ามี)
-npm uninstall -g @anthropic-ai/claude-code
-
-# ติดตั้งเวอร์ชัน 2.1.104
-bun install -g @anthropic-ai/claude-code@2.1.104
-```
-
-### 🍎 สำหรับ macOS / Linux
-รันคำสั่งติดตั้งมาตรฐาน:
 ```bash
 curl -fsSL https://cdn.anthropic.com/claude-code/install.sh | sh
 ```
