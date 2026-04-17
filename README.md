@@ -46,19 +46,12 @@ wsl --set-default-version 2
 wsl --install -d Ubuntu-24.04
 ```
 
-> **⚠️ สำหรับผู้ใช้ Ryzen CPU**: หากมีปัญหา ให้ใช้ WSL version 1:
-> ```powershell
-> wsl --set-default-version 1
-> ```
-
-![คำเตือนสำหรับ Ryzen](https://github.com/kittipitch/cs111env/raw/main/images/windows/img37_win_ryzen_warning.png)
-
 *เมื่อเสร็จแล้ว ให้ตั้ง Username และ Password ใน Ubuntu Terminal*
 
 ### 1.4 ติดตั้ง Windows Terminal
 ดาวน์โหลดจาก: https://aka.ms/terminal
 
-ตั้งค่า Default Profile เป็น "Ubuntu-24.04" และเลือกฟอนต์ "CaskaydiaCove Nerd Font"
+ตั้งค่า Default Profile เป็น "Ubuntu-24.04"
 
 ![ตั้งค่า Windows Terminal](https://github.com/kittipitch/cs111env/raw/main/images/windows/img02_win_term_profile_4.png)
 
