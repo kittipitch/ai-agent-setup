@@ -56,7 +56,7 @@ fnm use 24
 ติดตั้งเวอร์ชันล่าสุด (2.1.112) ด้วยคำสั่งเดียว - รองรับทุกระบบ (macOS/Linux/WSL):
 
 ```bash
-curl -fsSL https://claude.ai/install.sh | sh
+curl -fsSL https://claude.ai/install.sh | bash
 ```
 
 ### 🚀 เริ่มต้นใช้งาน (ทุกระบบ)
@@ -80,7 +80,7 @@ claude
 เครื่องมือเสริมประสิทธิภาพที่จะช่วยให้ AI Agent ของคุณทำงานได้เหมือนมืออาชีพ (ติดตั้งตาม Session ใน Workshop)
 
 ### ⚡ เพิ่มประสิทธิภาพ (Session 1-2)
-- **RTK (Context Filter)**: กรองไฟล์ที่ไม่จำเป็นออกอัตโนมัติ
+- **[RTK](https://github.com/rtk-ai/rtk) (Context Filter)**: กรองไฟล์ที่ไม่จำเป็นออกอัตโนมัติ
   ```bash
   curl -fsSL https://raw.githubusercontent.com/rtk-ai/rtk/refs/heads/master/install.sh | sh
   rtk init -g
