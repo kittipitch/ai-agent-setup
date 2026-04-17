@@ -87,7 +87,7 @@ claude
   ```
 - **Caveman (Token Saver)**: ลด Token usage ลง 65% สำหรับงานง่ายๆ
   ```bash
-  npx pi-caveman
+  claude plugin marketplace add JuliusBrussee/caveman && claude plugin install caveman@caveman
   ```
 
 ### 🛡️ ความปลอดภัยและวิชาการ (Session 4-6)
