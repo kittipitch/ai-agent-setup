@@ -85,7 +85,7 @@ claude
   curl -fsSL https://raw.githubusercontent.com/rtk-ai/rtk/refs/heads/master/install.sh | sh
   rtk init -g
   ```
-- **Caveman (Token Saver)**: ลด Token usage ลง 65% สำหรับงานง่ายๆ
+- **[Caveman](https://github.com/juliusbrussee/caveman) (Token Saver)**: ลด Token usage ลง 65% สำหรับงานง่ายๆ
   ```bash
   claude plugin marketplace add JuliusBrussee/caveman && claude plugin install caveman@caveman
   ```
