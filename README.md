@@ -75,7 +75,12 @@ ln -sf "$HOME_DIR/Downloads" ~/
 sudo apt update; sudo apt upgrade -y
 ```
 
-### 1.7 ตั้งค่า WSL ขั้นสูง (แนะนำ)
+### 1.7 ติดตั้งเครื่องมือพื้นฐาน
+```bash
+sudo apt install -y tar zip unzip git build-essential python3-pip python3-venv pipenv tmux mypy dos2unix xclip emacs-nox vim neovim bat wget curl gnupg ca-certificates kdiff3
+```
+
+### 1.8 ตั้งค่า WSL เพิ่มเติม
 
 #### แก้ไข permissions และเปิดใช้งาน systemd
 แก้ไขไฟล์ `/etc/wsl.conf`:
