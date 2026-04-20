@@ -75,12 +75,56 @@ ln -sf "$HOME_DIR/Downloads" ~/
 sudo apt update; sudo apt upgrade -y
 ```
 
-### 1.7 ติดตั้งเครื่องมือพื้นฐาน
+### 1.7 ติดตั้งเครื่องมือพื้นฐาน (Git, gh, pipx, uv)
+> [!IMPORTANT]
+> **Git และ GitHub CLI (gh)** จำเป็นต้องใช้สำหรับการจัดการโปรเจกต์และรัน GSD.
+
+#### On WSL / Ubuntu (Linux)
 ```bash
-sudo apt install -y tar zip unzip git build-essential python3-pip python3-venv pipenv tmux mypy dos2unix xclip emacs-nox vim neovim bat wget curl gnupg ca-certificates kdiff3
+# ติดตั้ง Git และ GitHub CLI
+sudo apt update && sudo apt install -y git gh
+
+# ติดตั้ง Packages พื้นฐาน (Python)
+sudo apt install -y python3-pip python3-venv
+
+# ติดตั้ง pipx
+sudo apt install -y pipx
+pipx ensurepath
+
+# ติดตั้ง uv (โดยใช้ curl ตามมาตรฐาน)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+source $HOME/.local/bin/env
 ```
 
-### 1.8 ตั้งค่า WSL เพิ่มเติม
+#### On macOS
+```bash
+# ติดตั้ง Git และ GitHub CLI
+brew install git gh
+
+# ติดตั้ง pipx
+brew install pipx
+pipx ensurepath
+
+# ติดตั้ง uv
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+### 1.8 การยืนยันตัวตน GitHub (gh auth login)
+หลังจากติดตั้ง `gh` เสร็จแล้ว ต้องทำการ Login เพื่อให้ Claude Code สามารถสั่งงาน GitHub ได้:
+
+```bash
+gh auth login
+```
+
+**ขั้นตอนการตั้งค่า (ทำตามหน้าจอ):**
+1. **What account?** -> เลือก `GitHub.com`
+2. **Preferred protocol?** -> เลือก `HTTPS`
+3. **Authenticate Git with your credentials?** -> เลือก `Yes`
+4. **How would you like to authenticate?** -> เลือก `Login with a web browser`
+5. คัดลอก **One-time code** และกด **Enter** เพื่อเปิดเบราว์เซอร์
+6. วางโค้ดและยืนยันการขอสิทธิ์
+
+### 1.9 ตั้งค่า WSL เพิ่มเติม
 
 #### แก้ไข permissions และเปิดใช้งาน systemd
 แก้ไขไฟล์ `/etc/wsl.conf`:
@@ -163,7 +207,6 @@ fnm use 24
 ## 3. ติดตั้ง Claude Code CLI (ทุกระบบ)
 
 ติดตั้งเวอร์ชันล่าสุด (2.1.112) ด้วยคำสั่งเดียว - รองรับทุกระบบ (macOS/Linux/WSL):
-
 ```bash
 curl -fsSL https://claude.ai/install.sh | bash
 ```
@@ -183,54 +226,3 @@ claude
 3. **Claude Extension**: ค้นหา "Claude" ใน Marketplace และติดตั้งเวอร์ชันทางการจาก **Anthropic** (หรือ Claude Dev)
 
 ---
-
-## ⚔️ คลังแสงวิศวกร (The Surgical Arsenal)
-
-เครื่องมือเสริมประสิทธิภาพที่จะช่วยให้ AI Agent ของคุณทำงานได้เหมือนมืออาชีพ (ติดตั้งตาม Session ใน Workshop)
-
-### ⚡ เพิ่มประสิทธิภาพ (Session 1-2)
-- **[RTK](https://github.com/rtk-ai/rtk) (Context Filter)**: กรองไฟล์ที่ไม่จำเป็นออกอัตโนมัติ
-  ```bash
-  curl -fsSL https://raw.githubusercontent.com/rtk-ai/rtk/refs/heads/master/install.sh | sh
-  rtk init -g
-  ```
-- **[Caveman](https://github.com/juliusbrussee/caveman) (Token Saver)**: ลด Token usage ลง 65% สำหรับงานง่ายๆ
-  ```bash
-  claude plugin marketplace add JuliusBrussee/caveman && claude plugin install caveman@caveman
-  ```
-
-### 🛡️ ความปลอดภัยและวิชาการ (Session 4-6)
-- **Official Plugins**: ติดตั้งภายใน Claude Code
-  ```bash
-  /plugin install security-guidance
-  /plugin install code-review
-  ```
-- **Claude-Mem (Memory Protocol)**: ระบบความจำระยะยาว
-  ```bash
-  /plugin install thedotmack/claude-mem
-  ```
-- **CPR (Context Preservation)**: กู้คืนบริบทงานได้อย่างรวดเร็ว
-  ```bash
-  git clone https://github.com/EliaAlberti/cpr-compress-preserve-resume ~/.claude/commands/cpr
-  ```
-- **code-review-graph (AST Analysis)**: วิเคราะห์โครงสร้างโค้ดเชิงลึก
-  ```bash
-  sudo apt install -y python3-pip  # สำหรับ WSL/Ubuntu
-  pip install code-review-graph --break-system-packages
-  ```
-
-### 🎨 สถาปัตยกรรม (Architecture)
-- **Hookify**: สร้าง Custom Workflow ของคุณเอง
-  ```bash
-  /plugin install hookify@claude-plugins-official
-  ```
-- **Claude Wizard**: ระบบแนะนำการทำงานแบบ 8-Phase
-  ```bash
-  curl -sL https://raw.githubusercontent.com/vlad-ko/claude-wizard/main/install.sh | bash
-  ```
-
----
-
-## ภาคผนวก: การออกจาก Editor
-- **nano**: `Ctrl + X` → `Y` → `Enter`
-- **vim**: `Esc` → `:q!` → `Enter`
