@@ -118,7 +118,7 @@ npm --version
 curl -fsSL https://claude.ai/install.sh | bash
 ```
 
-### 🚀 เริ่มต้นใช้งาน
+### เริ่มต้นใช้งาน
 ```bash
 claude
 # ทำตามขั้นตอน Login บนหน้าจอ
@@ -134,7 +134,7 @@ claude
 
 ---
 
-## ✅ เสร็จสิ้น!
+## เสร็จสิ้น!
 
 เมื่อติดตั้งทุกอย่างเสร็จแล้ว คุณพร้อมที่จะเริ่ม Workshop **AI-Accelerated Software Development** แล้ว!
 
