@@ -193,14 +193,15 @@ bun --version  # ควรได้ 1.x.x ขึ้นไป
 
 **ติดตั้ง Node.js + npm (จำเป็นสำหรับ Claude Code Plugins):**
 
+### สำหรับ WSL / Ubuntu (Linux)
+
 > [!IMPORTANT]
 > **ต้องติดตั้ง Node.js แบบ Global (ระดับระบบ)** ไม่ใช่ผ่าน NVM หรือ FNM
 >
 > ปลั๊กอินบางตัวของ Claude Code (เช่น **claude-mem**, **MemPalace**) ใช้ Node.js ใน hooks ที่ทำงานในสภาพแวดล้อมที่สะอาด (clean environment) หากติดตั้ง Node ผ่าน NVM/FNM ปลั๊กอินจะหา `node` ไม่เจอและเกิด error ได้
 >
-> **แนะนำ**: Node.js **24** หรือเวอร์ชัน **20 ขึ้นไป** | npm จะติดตั้งมาพร้อมกับ Node.js อัตโนมัติ
+> **แนะนำ**: Node.js **24** หรือเวอร์ชัน **20 ขึ้นไป**
 
-#### On WSL / Ubuntu (Linux)
 ```bash
 # ติดตั้ง Node.js 24 ผ่าน NodeSource repository (เวอร์ชันล่าสุด)
 curl -fsSL https://deb.nodesource.com/setup_24.x | sudo -E bash -
@@ -211,7 +212,20 @@ node --version
 npm --version
 ```
 
-#### On macOS
+> [!WARNING]
+> **อย่าใช้ NVM หรือ FNM** สำหรับ Node.js ที่ใช้กับ Claude Code Plugins
+>
+> เครื่องมือจัดการเวอร์ชัน Node เหล่านี้จะติดตั้ง Node ในโฟลเดอร์ผู้ใช้ (`~/.nvm/` หรือ `~/.fnm/`) ซึ่งจะ **ไม่พร้อมใช้งาน** ใน hooks ของปลั๊กอินที่ทำงานในสภาพแวดล้อมใหม่ ส่งผลให้เกิด error ได้
+
+### สำหรับ macOS
+
+> [!IMPORTANT]
+> **ต้องติดตั้ง Node.js แบบ Global (ระดับระบบ)** ไม่ใช่ผ่าน NVM หรือ FNM
+>
+> ปลั๊กอินบางตัวของ Claude Code (เช่น **claude-mem**, **MemPalace**) ใช้ Node.js ใน hooks ที่ทำงานในสภาพแวดล้อมที่สะอาด (clean environment) หากติดตั้ง Node ผ่าน NVM/FNM ปลั๊กอินจะหา `node` ไม่เจอและเกิด error ได้
+>
+> **แนะนำ**: Node.js **24** หรือเวอร์ชัน **20 ขึ้นไป**
+
 ```bash
 # ติดตั้ง Node.js 24 ผ่าน Homebrew
 brew install node@24
