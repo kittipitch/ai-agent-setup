@@ -202,6 +202,16 @@ fnm install 24
 fnm use 24
 ```
 
+> [!TIP]
+> **เปิดใช้งาน Auto-switch Node Version**: เพื่อให้ fnm เปลี่ยนเวอร์ชัน Node.js อัตโนมัติเมื่อเข้าโฟลเดอร์โปรเจกต์ ให้เพิ่มข้อมูลต่อไปนี้ที่ท้ายไฟล์ `.bashrc` หรือ `.zshrc`:
+>
+> ```bash
+> if command -v fnm >/dev/null 2>&1; then
+>   eval "$(fnm env --use-on-cd)"
+> fi
+> ```
+```
+
 ---
 
 ## 3. ติดตั้ง Claude Code CLI (ทุกระบบ)
