@@ -192,25 +192,37 @@ bun --version  # ควรได้ 1.x.x ขึ้นไป
 ```
 
 **ติดตั้ง Node.js + npm (จำเป็นสำหรับ Claude Code Plugins):**
-```bash
-# ติดตั้ง fnm (Fast Node Manager)
-curl -fsSL https://fnm.vercel.app/install | bash
-source ~/.bashrc
 
-# ติดตั้ง Node.js (npm จะมากับ Node.js อัตโนมัติ)
-fnm install 24
-fnm use 24
+> [!NOTE]
+> แนะนำ **Node.js 24** หรือเวอร์ชัน **20 ขึ้นไป** npm จะติดตั้งมาพร้อมกับ Node.js อัตโนมัติ
+
+#### On WSL / Ubuntu (Linux)
+```bash
+# ติดตั้ง Node.js 24 ผ่าน NodeSource repository (เวอร์ชันล่าสุด)
+curl -fsSL https://deb.nodesource.com/setup_24.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# ตรวจสอบเวอร์ชัน
+node --version
+npm --version
+```
+
+#### On macOS
+```bash
+# ติดตั้ง Node.js 24 ผ่าน Homebrew
+brew install node@24
+
+# เพิ่ม Node.js เข้า PATH (เพิ่มท้าย ~/.zshrc)
+echo 'export PATH="/opt/homebrew/opt/node@24/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+
+# ตรวจสอบเวอร์ชัน
+node --version
+npm --version
 ```
 
 > [!TIP]
-> **เปิดใช้งาน Auto-switch Node Version**: เพื่อให้ fnm เปลี่ยนเวอร์ชัน Node.js อัตโนมัติเมื่อเข้าโฟลเดอร์โปรเจกต์ ให้เพิ่มข้อมูลต่อไปนี้ที่ท้ายไฟล์ `.bashrc` หรือ `.zshrc`:
->
-> ```bash
-> if command -v fnm >/dev/null 2>&1; then
->   eval "$(fnm env --use-on-cd)"
-> fi
-> ```
-```
+> **หากต้องการหลายเวอร์ชัน**: สามารถใช้ `fnm` (Fast Node Manager) แทนการติดตั้งแบบ global ได้ ดูวิธีติดตั้งได้ที่ https://fnm.vercel.app
 
 ---
 
