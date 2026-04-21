@@ -4,267 +4,75 @@
 
 ---
 
-## 1. การเตรียมตัว (Windows/WSL Only)
+## 🚀 เลือกแพลตฟอร์มของคุณ
 
-หากคุณใช้ Windows เราจะใช้ **WSL2 (Windows Subsystem for Linux)** เพื่อให้ได้ประสบการณ์เดียวกับ Linux/macOS
+คลิกที่คู่มือที่ตรงกับระบบปฏิบัติการของคุณ:
 
-### 1.1 เปิด PowerShell แบบ Administrator
-1. กดปุ่ม **Win + R**
-2. พิมพ์ "powershell"
-3. กด **Ctrl + Shift + Enter**
-4. เลือก "Yes" ที่หน้าต่างป๊อปอัป
+### 1. 🪟 Windows Users
+ถ้าคุณใช้ **Windows** ให้เริ่มจากติดตั้ง WSL ก่อน:
 
-![ยืนยันการเปิด PowerShell](https://github.com/kittipitch/cs111env/raw/main/images/windows/img14_win_popup.png)
+#### 👉 [WSL.md](WSL.md) - คู่มือการติดตั้ง WSL
 
-### 1.2 เปิดใช้งานฟีเจอร์ WSL
-เปิด PowerShell (Administrator) แล้วรัน:
-
-```powershell
-# เปิดใช้งาน Windows Subsystem for Linux
-dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
-
-# เปิดใช้งาน Virtual Machine Platform
-dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
-```
-
-![เปิดฟีเจอร์ WSL](https://github.com/kittipitch/cs111env/raw/main/images/windows/img06_win_features_on.png)
-
-### 1.3 ติดตั้ง WSL และ Ubuntu
-หลังจากรีสตาร์ทเครื่อง ให้รัน:
-
-```powershell
-# อัปเดต WSL
-wsl --update
-
-# ติดตั้ง WSL
-wsl --install --no-distribution
-
-# ตั้งค่า WSL 2 เป็นค่าเริ่มต้น
-wsl --set-default-version 2
-
-# ติดตั้ง Ubuntu 24.04
-wsl --install -d Ubuntu-24.04
-```
-
-*เมื่อเสร็จแล้ว ให้ตั้ง Username และ Password ใน Ubuntu Terminal*
-
-### 1.4 ติดตั้ง Windows Terminal
-ดาวน์โหลดจาก: https://aka.ms/terminal
-
-ตั้งค่า Default Profile เป็น "Ubuntu-24.04"
-
-![ตั้งค่า Windows Terminal](https://github.com/kittipitch/cs111env/raw/main/images/windows/img02_win_term_profile_4.png)
-
-### 1.5 ตั้งค่าให้ Ubuntu เห็นไฟล์ Windows
-เปิด WSL Terminal แล้วรัน:
-
-```bash
-# เชื่อมโฟลเดอร์ Windows กับ Ubuntu
-HOME_DIR=$(wslpath -u $(cmd.exe /c echo %USERPROFILE% | tr -d '\r'))
-[[ -e "$HOME_DIR/OneDrive/Desktop" ]] && \
-ln -sf "$HOME_DIR/OneDrive/Desktop" ~/ || \
-ln -sf "$HOME_DIR/Desktop" ~/
-[[ -e "$HOME_DIR/OneDrive/Documents" ]] && \
-ln -sf "$HOME_DIR/OneDrive/Documents" ~/ || \
-ln -sf "$HOME_DIR/Documents" ~/
-ln -sf "$HOME_DIR/Downloads" ~/
-```
-
-### 1.6 อัปเดตและอัปเกรด Ubuntu
-```bash
-sudo apt update; sudo apt upgrade -y
-```
-
-### 1.7 ติดตั้งเครื่องมือพื้นฐาน (Git, gh, pipx, uv)
-> [!IMPORTANT]
-> **Git และ GitHub CLI (gh)** จำเป็นต้องใช้สำหรับการจัดการโปรเจกต์และรัน GSD.
-
-#### On WSL / Ubuntu (Linux)
-```bash
-# ติดตั้ง Git และ GitHub CLI
-sudo apt update && sudo apt install -y git gh
-
-# ติดตั้ง Packages พื้นฐาน (Python)
-sudo apt install -y python3-pip python3-venv
-
-# ติดตั้ง pipx
-sudo apt install -y pipx
-pipx ensurepath
-
-# ติดตั้ง uv (โดยใช้ curl ตามมาตรฐาน)
-curl -LsSf https://astral.sh/uv/install.sh | sh
-source $HOME/.local/bin/env
-```
-
-#### On macOS
-```bash
-# ติดตั้ง Git และ GitHub CLI
-brew install git gh
-
-# ติดตั้ง pipx
-brew install pipx
-pipx ensurepath
-
-# ติดตั้ง uv
-curl -LsSf https://astral.sh/uv/install.sh | sh
-```
-
-### 1.8 การยืนยันตัวตน GitHub (gh auth login)
-หลังจากติดตั้ง `gh` เสร็จแล้ว ต้องทำการ Login เพื่อให้ Claude Code สามารถสั่งงาน GitHub ได้:
-
-```bash
-gh auth login
-```
-
-**ขั้นตอนการตั้งค่า (ทำตามหน้าจอ):**
-1. **What account?** -> เลือก `GitHub.com`
-2. **Preferred protocol?** -> เลือก `HTTPS`
-3. **Authenticate Git with your credentials?** -> เลือก `Yes`
-4. **How would you like to authenticate?** -> เลือก `Login with a web browser`
-5. คัดลอก **One-time code** และกด **Enter** เพื่อเปิดเบราว์เซอร์
-6. วางโค้ดและยืนยันการขอสิทธิ์
-
-### 1.9 ตั้งค่า WSL เพิ่มเติม
-
-#### แก้ไข permissions และเปิดใช้งาน systemd
-แก้ไขไฟล์ `/etc/wsl.conf`:
-
-```bash
-sudo nano /etc/wsl.conf
-```
-
-เพิ่มข้อมูลต่อไปนี้:
-
-```ini
-[boot]
-systemd=true
-[automount]
-enabled=true
-options="metadata,uid=1000,gid=1000,umask=077"
-```
-
-![ตั้งค่า wsl.conf](https://github.com/kittipitch/cs111env/raw/main/images/nix/img22_nix_wsl_conf.png)
-
-กด **Ctrl + O** → **Enter** → **Ctrl + X** เพื่อบันทึกและออก
-
-#### จำกัดทรัพยากร WSL (ป้องกันใช้ RAM/เครื่องมากเกินไป)
-สร้างไฟล์ `.wslconfig` ในโฟลเดอร์ผู้ใช้ Windows:
-
-```bash
-HOME_DIR=$(wslpath -u $(cmd.exe /c echo %USERPROFILE% | tr -d '\r'))
-nano $HOME_DIR/.wslconfig
-```
-
-เพิ่มข้อมูลต่อไปนี้ (ปรับค่าตามสเปคเครื่อง):
-
-```ini
-[wsl2]
-memory=2GB
-processors=1
-```
-
-> **หมายเหตุ**: `memory` คือ RAM สูงสุดที่ WSL ใช้ได้, `processors` คือจำนวน CPU cores หลังจากแก้ไขให้รีสตาร์ท WSL:
-> ```powershell
-> wsl --shutdown
-> ```
-> จากนั้นเปิด WSL ใหม่
+หลังจากติดตั้ง WSL เสร็จแล้ว ให้ดู:
+#### 👉 [UBUNTU.md](UBUNTU.md) - คู่มือการติดตั้งบน Ubuntu/WSL
 
 ---
 
-## 2. ติดตั้ง Runtime หลัก (Shared - ทุกระบบ)
+### 2. 🐧 Ubuntu/Linux Users
+ถ้าคุณใช้ **Ubuntu** หรือ Linux distros อื่นๆ:
 
-เราใช้ **Bun** เป็นเครื่องยนต์หลักในการรันโปรเจกต์และ AI Agent
+#### 👉 [UBUNTU.md](UBUNTU.md) - คู่มือการติดตั้งบน Ubuntu/WSL
 
-**สำหรับ WSL/Ubuntu:** ติดตั้ง `unzip` ก่อน (Bun ต้องการ):
-```bash
-sudo apt update && sudo apt install -y unzip
-```
+---
 
-```bash
-# ติดตั้ง Bun
-curl -fsSL https://bun.com/install | bash
-source ~/.bashrc
-```
+### 3. 🍎 macOS Users
+ถ้าคุณใช้ **macOS**:
 
-**ตรวจสอบเวอร์ชัน:**
-```bash
-bun --version  # ควรได้ 1.x.x ขึ้นไป
-```
+#### 👉 [MACOS.md](MACOS.md) - คู่มือการติดตั้งบน macOS
 
-**ติดตั้ง Node.js + npm (จำเป็นสำหรับ Claude Code Plugins):**
+---
 
-### สำหรับ WSL / Ubuntu (Linux)
+## 📋 ภาพรวมเครื่องมือที่จะติดตั้ง
+
+ทุกแพลตฟอร์มจะติดตั้งเครื่องมือชุดเดียวกัน:
+
+| เครื่องมือ | ใช้สำหรับ |
+|--------------|-------------|
+| **Git** | จัดการ version control |
+| **GitHub CLI (gh)** | ทำงานกับ GitHub ผ่าน command line |
+| **Bun** | JavaScript runtime หลัก |
+| **Node.js + npm** | จำเป็นสำหรับ Claude Code Plugins |
+| **pipx** | ติดตั้ง Python CLI tools แบบ isolated |
+| **uv** | Python package installer ที่เร็ว |
+| **Claude Code CLI** | AI coding assistant |
+| **VS Code** | Code editor |
 
 > [!IMPORTANT]
-> **ต้องติดตั้ง Node.js แบบ Global (ระดับระบบ)** ไม่ใช่ผ่าน NVM หรือ FNM
->
-> ปลั๊กอินบางตัวของ Claude Code (เช่น **claude-mem**, **MemPalace**) ใช้ Node.js ใน hooks ที่ทำงานในสภาพแวดล้อมที่สะอาด (clean environment) หากติดตั้ง Node ผ่าน NVM/FNM ปลั๊กอินจะหา `node` ไม่เจอและเกิด error ได้
->
-> **แนะนำ**: Node.js **24** หรือเวอร์ชัน **20 ขึ้นไป**
-
-```bash
-# ติดตั้ง Node.js 24 ผ่าน NodeSource repository (เวอร์ชันล่าสุด)
-curl -fsSL https://deb.nodesource.com/setup_24.x | sudo -E bash -
-sudo apt-get install -y nodejs
-
-# ตรวจสอบเวอร์ชัน
-node --version
-npm --version
-```
-
-> [!WARNING]
-> **อย่าใช้ NVM หรือ FNM** สำหรับ Node.js ที่ใช้กับ Claude Code Plugins
->
-> เครื่องมือจัดการเวอร์ชัน Node เหล่านี้จะติดตั้ง Node ในโฟลเดอร์ผู้ใช้ (`~/.nvm/` หรือ `~/.fnm/`) ซึ่งจะ **ไม่พร้อมใช้งาน** ใน hooks ของปลั๊กอินที่ทำงานในสภาพแวดล้อมใหม่ ส่งผลให้เกิด error ได้
-
-### สำหรับ macOS
-
-> [!IMPORTANT]
-> **ต้องติดตั้ง Node.js แบบ Global (ระดับระบบ)** ไม่ใช่ผ่าน NVM หรือ FNM
->
-> ปลั๊กอินบางตัวของ Claude Code (เช่น **claude-mem**, **MemPalace**) ใช้ Node.js ใน hooks ที่ทำงานในสภาพแวดล้อมที่สะอาด (clean environment) หากติดตั้ง Node ผ่าน NVM/FNM ปลั๊กอินจะหา `node` ไม่เจอและเกิด error ได้
->
-> **แนะนำ**: Node.js **24** หรือเวอร์ชัน **20 ขึ้นไป**
-
-```bash
-# ติดตั้ง Node.js 24 ผ่าน Homebrew
-brew install node@24
-
-# เพิ่ม Node.js เข้า PATH (เพิ่มท้าย ~/.zshrc)
-echo 'export PATH="/opt/homebrew/opt/node@24/bin:$PATH"' >> ~/.zshrc
-source ~/.zshrc
-
-# ตรวจสอบเวอร์ชัน
-node --version
-npm --version
-```
-
-> [!WARNING]
-> **อย่าใช้ NVM หรือ FNM** สำหรับ Node.js ที่ใช้กับ Claude Code Plugins
->
-> เครื่องมือจัดการเวอร์ชัน Node เหล่านี้จะติดตั้ง Node ในโฟลเดอร์ผู้ใช้ (`~/.nvm/` หรือ `~/.fnm/`) ซึ่งจะ **ไม่พร้อมใช้งาน** ใน hooks ของปลั๊กอินที่ทำงานในสภาพแวดล้อมใหม่ ส่งผลให้เกิด error ได้
+> **Node.js ต้องติดตั้งแบบ Global** (ไม่ใช่ผ่าน NVM/FNM) เพื่อให้ Claude Code Plugins ทำงานได้
 
 ---
 
-## 3. ติดตั้ง Claude Code CLI (ทุกระบบ)
+## 🎯 หลังจากติดตั้งเสร็จ
 
-ติดตั้งเวอร์ชันล่าสุด (2.1.112) ด้วยคำสั่งเดียว - รองรับทุกระบบ (macOS/Linux/WSL):
-```bash
-curl -fsSL https://claude.ai/install.sh | bash
-```
-
-### 🚀 เริ่มต้นใช้งาน (ทุกระบบ)
-```bash
-claude
-# ทำตามขั้นตอน Login บนหน้าจอ
-```
+เมื่อติดตั้งทุกอย่างเสร็จแล้ว คุณจะมีสภาพแวดล้อมที่พร้อมสำหรับ:
+- ✅ เขียนโค้ดด้วย AI assistance
+- ✅ จัดการโปรเจกต์ด้วย Git/GitHub
+- ✅ รัน JavaScript/TypeScript ด้วย Bun
+- ✅ ใช้ Python tools ที่ modern (uv, pipx)
+- ✅ ใช้ Claude Code CLI และ Plugins ได้อย่างเต็มประสิทธิภาพ
 
 ---
 
-## 4. ติดตั้ง Editor และ Extensions (Shared)
+## ❓ ติดปัญหา?
 
-1. ติดตั้ง [VS Code](https://code.visualstudio.com/)
-2. **สำหรับ Windows**: ติดตั้ง Extension ชื่อ **"WSL"**
-3. **Claude Extension**: ค้นหา "Claude" ใน Marketplace และติดตั้งเวอร์ชันทางการจาก **Anthropic** (หรือ Claude Dev)
+หากพบปัญหาในการติดตั้ง:
+1. ตรวจสอบว่าเลือกคู่มือที่ตรงกับแพลตฟอร์มของคุณ
+2. ตรวจสอบเวอร์ชันของเครื่องมือด้วยคำสั่ง `--version` หรือ `--help`
+3. อ่านข้อความ error ให้ละเอียด มักจะบอกสาเหตุและวิธีแก้ไข
 
 ---
+
+## 📚 เอกสารเพิ่มเติม
+
+- [CLAUDE.md](CLAUDE.md) - คู่มือสำหรับ Claude Code เมื่อทำงานใน repo นี้
+- [downloads/](downloads/) - Skill templates สำหรับ Claude Code
