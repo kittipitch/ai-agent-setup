@@ -109,6 +109,19 @@ npm --version
 >
 > เครื่องมือจัดการเวอร์ชัน Node เหล่านี้จะติดตั้ง Node ในโฟลเดอร์ผู้ใช้ (`~/.nvm/` หรือ `~/.fnm/`) ซึ่งจะ **ไม่พร้อมใช้งาน** ใน hooks ของปลั๊กอินที่ทำงานในสภาพแวดล้อมใหม่ ส่งผลให้เกิด error ได้
 
+> [!TIP]
+> **สำหรับผู้ใช้ WSL:** เพื่อป้องกันปัญหาคำสั่ง `npm`/`npx` ของ Windows ขัดแย้งกับของ Ubuntu ให้รันคำสั่งนี้เพื่อเพิ่มการตั้งค่าลงในทั้ง `~/.bashrc` และ `~/.zshrc`
+> ```bash
+> tee -a ~/.bashrc ~/.zshrc > /dev/null << 'EOF'
+> 
+> # Remove Windows npm/npx from PATH to avoid conflicts
+> if [[ -e /proc/sys/fs/binfmt_misc/WSLInterop ]]; then
+>   export PATH=$(echo "$PATH" | tr ':' '\n' | grep -v '/mnt/c/Program Files/nodejs' | tr '\n' ':' | sed 's/:$//')
+> fi
+> EOF
+> source ~/.bashrc 2>/dev/null; source ~/.zshrc 2>/dev/null
+> ```
+
 ---
 
 ## 6. ติดตั้ง AI CLI Tools (Gemini & Claude)

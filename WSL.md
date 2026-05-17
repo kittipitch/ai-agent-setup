@@ -145,5 +145,7 @@ wsl --shutdown
 - Python tools (pipx, uv)
 - Bun Runtime
 - Node.js + npm (Global installation)
+- Gemini CLI
 - Claude Code CLI
 - VS Code + Extensions
+- Antigravity Agentic IDE
