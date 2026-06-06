@@ -9,11 +9,12 @@
 คลิกที่คู่มือที่ตรงกับระบบปฏิบัติการของคุณ:
 
 ### 1. Windows Users
-ถ้าคุณใช้ **Windows** ติดตั้งแบบ native (ไม่ต้องใช้ WSL):
+ถ้าคุณใช้ **Windows** ให้เริ่มจากติดตั้ง WSL ก่อน:
 
-#### [WINDOWS.md](WINDOWS.md) - คู่มือการติดตั้งบน Windows (Native / winget)
+#### [WSL.md](WSL.md) - คู่มือการติดตั้ง WSL
 
-> ต้องการใช้ WSL แทน? ดู [WSL.md](WSL.md) + [UBUNTU.md](UBUNTU.md) (advanced users only)
+หลังจากติดตั้ง WSL เสร็จแล้ว ให้ดู:
+#### [UBUNTU.md](UBUNTU.md) - คู่มือการติดตั้งบน Ubuntu/WSL
 
 ---
 
