@@ -167,19 +167,14 @@ agy
 
 > ไม่มีคำสั่ง `agy auth login` — agy login อัตโนมัติเมื่อเปิดครั้งแรก (logout ใช้ `/logout` ใน session)
 
-#### 8b. Antigravity 2.0 Desktop App
+#### 8b. Antigravity 2.0 Desktop + Antigravity IDE
 
-ดาวน์โหลดจาก [antigravity.google](https://antigravity.google)
+ไปที่ [antigravity.google/download](https://antigravity.google/download) แล้วดาวน์โหลด **ทั้งสองตัว**:
 
-#### 8c. Antigravity IDE Extension (VS Code)
+- **Antigravity 2.0** — Desktop app (multi-agent orchestration)
+- **Antigravity IDE** — IDE / editor
 
-ถ้าใช้ VS Code:
-
-```powershell
-code --install-extension google.antigravity-ide
-```
-
-ถ้าใช้ **Zed**: Antigravity IDE ยังไม่ integrate กับ Zed โดยตรง — ใช้ Zed AI แทน (built-in)
+> ถ้าใช้ **Zed**: ใช้ Zed AI (built-in) แทน Antigravity IDE
 
 ---
 
