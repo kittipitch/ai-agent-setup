@@ -8,7 +8,7 @@
 ## ข้อกำหนดเบื้องต้น
 
 - Windows 10 (1809+) หรือ Windows 11
-- PowerShell 5+ (มาพร้อม Windows แล้ว) หรือ Windows Terminal (แนะนำ)
+- PowerShell 7.4+ (จำเป็นสำหรับ Microsoft Coreutils — ดูขั้นตอนที่ 2)
 - Google Account (สำหรับ Antigravity)
 - GitHub Account
 
@@ -26,7 +26,40 @@ winget --version
 
 ---
 
-### 2. Git
+### 2. PowerShell 7.4+ และ Microsoft Coreutils
+
+> PowerShell 7.4+ จำเป็นสำหรับ Microsoft Coreutils (Coreutils ไม่ทำงานบน PowerShell 5)
+
+ติดตั้ง PowerShell 7:
+
+```powershell
+winget install --id Microsoft.PowerShell --exact
+```
+
+ปิดแล้วเปิด PowerShell ใหม่ (ใช้ PowerShell 7 จากนี้ไป) จากนั้นติดตั้ง Microsoft Coreutils:
+
+```powershell
+winget install --id Microsoft.CoreUtils --exact
+```
+
+Microsoft Coreutils นำ Unix commands มาสู่ Windows โดยไม่ต้องใช้ WSL: `ls`, `grep`, `find`, `cat`, `cp`, `mv` และอีก 70+ คำสั่ง
+
+> **หมายเหตุ PATH**: Coreutils ต้องอยู่ก่อน `system32` ใน PATH เพื่อ override Windows built-ins บางคำสั่ง (เช่น `find`) ตรวจสอบหลังติดตั้ง:
+
+```powershell
+Get-Command find | Select-Object -ExpandProperty Source
+```
+
+ตรวจสอบ:
+
+```powershell
+grep --version
+find --version
+```
+
+---
+
+### 3. Git
 
 ```powershell
 winget install --id Git.Git --exact
@@ -41,7 +74,7 @@ git config --global user.email "your@email.com"
 
 ---
 
-### 3. GitHub CLI
+### 4. GitHub CLI
 
 ```powershell
 winget install --id GitHub.cli --exact
@@ -55,7 +88,7 @@ gh auth login
 
 ---
 
-### 4. Node.js (Global — ไม่ใช้ NVM)
+### 5. Node.js (Global — ไม่ใช้ NVM)
 
 > ต้องติดตั้งแบบ global เท่านั้น เพื่อให้ Claude Code Plugins ทำงานได้
 
@@ -72,7 +105,7 @@ npm --version
 
 ---
 
-### 5. Bun
+### 6. Bun
 
 ```powershell
 powershell -c "irm bun.sh/install.ps1 | iex"
@@ -86,7 +119,7 @@ bun --version
 
 ---
 
-### 6. Python tools (pipx + uv)
+### 7. Python tools (pipx + uv)
 
 ```powershell
 winget install --id Python.Python.3.12 --exact
@@ -108,39 +141,37 @@ uv --version
 
 ---
 
-### 7. Antigravity (Google AI Coding Agent)
+### 8. Antigravity (Google AI Coding Agent)
 
 Antigravity มี 3 ส่วน — ติดตั้งทีละส่วน:
 
-#### 7a. Antigravity CLI (`agy`)
+#### 8a. Antigravity CLI (`agy`)
+
+ติดตั้งด้วย PowerShell one-liner (official install method):
 
 ```powershell
-winget install --id Google.Antigravity --exact
+irm https://antigravity.google/cli/install.ps1 | iex
 ```
 
-Binary ชื่อ `agy` (ไม่ใช่ `antigravity`) ติดตั้งที่ `%LOCALAPPDATA%\Antigravity\`
-
-ตรวจสอบ:
+ปิดแล้วเปิด PowerShell ใหม่ จากนั้นตรวจสอบ:
 
 ```powershell
 agy --version
 ```
 
-Login ด้วย Google Account:
+Login: เปิด `agy` ครั้งแรก — login อัตโนมัติผ่าน browser + keyring ของ OS
 
 ```powershell
-agy auth login
+agy
 ```
 
-#### 7b. Antigravity 2.0 Desktop App
+> ไม่มีคำสั่ง `agy auth login` — agy login อัตโนมัติเมื่อเปิดครั้งแรก (logout ใช้ `/logout` ใน session)
 
-ดาวน์โหลดจาก [antigravity.google](https://antigravity.google) หรือ:
+#### 8b. Antigravity 2.0 Desktop App
 
-```powershell
-winget install --id Google.Antigravity.Desktop --exact
-```
+ดาวน์โหลดจาก [antigravity.google](https://antigravity.google)
 
-#### 7c. Antigravity IDE Extension (VS Code)
+#### 8c. Antigravity IDE Extension (VS Code)
 
 ถ้าใช้ VS Code:
 
@@ -152,7 +183,7 @@ code --install-extension google.antigravity-ide
 
 ---
 
-### 8. Zed Editor (Student Plan — $10/month)
+### 9. Zed Editor (Student Plan — $10/month)
 
 ดาวน์โหลดจาก [zed.dev](https://zed.dev) หรือ:
 
@@ -164,7 +195,7 @@ winget install --id Zed.Zed --exact
 
 ---
 
-### 9. Claude Code CLI (Optional — สำหรับดู instructor demo)
+### 10. Claude Code CLI (Optional — สำหรับดู instructor demo)
 
 ```powershell
 npm install -g @anthropic-ai/claude-code
@@ -175,6 +206,26 @@ npm install -g @anthropic-ai/claude-code
 ```powershell
 claude --version
 ```
+
+---
+
+### 11. agy Plugins (Skills)
+
+ติดตั้ง plugins ที่ใช้ใน Workshop (ใช้ full GitHub URL — agy ยังไม่รองรับ shorthand `user/repo`):
+
+```powershell
+# caveman — terse output, ประหยัด token
+agy plugins install https://github.com/JuliusBrussee/caveman
+
+# superpower — surgical TDD (ใช้ใน S2)
+agy plugins install https://github.com/obra/superpowers
+```
+
+ปิดแล้วเปิด `agy` ใหม่ — พิมพ์ `/caveman` เพื่อทดสอบ
+
+> **rtk** และ **GSD** ติดตั้งในคาบเรียน (S2/S3):
+> - rtk: `rtk init -g --gemini` + เพิ่มกฎ "prefix shell commands with `rtk`" ใน GEMINI.md
+> - GSD: `ln -s ~/.gemini/antigravity-cli ~/.gemini/antigravity` แล้ว `npx @opengsd/gsd-core@latest`
 
 ---
 
@@ -197,19 +248,10 @@ agy --version
 
 | ปัญหา | วิธีแก้ |
 |:---|:---|
-| `agy` ไม่รู้จัก | ปิด PowerShell แล้วเปิดใหม่ หรือเพิ่ม `%LOCALAPPDATA%\Antigravity\` ใน PATH |
+| `agy` ไม่รู้จัก | ปิด PowerShell แล้วเปิดใหม่ (installer แก้ไข PATH อัตโนมัติ) |
 | `bun` ไม่รู้จัก | ปิด PowerShell แล้วเปิดใหม่ (installer แก้ไข PATH อัตโนมัติ) |
 | winget ไม่มี | ติดตั้ง App Installer จาก Microsoft Store |
 | `agy auth login` เปิด browser ไม่ได้ | ใช้ `agy auth login --no-browser` แล้ววาง URL ใน browser เอง |
+| Coreutils `find` ยังชี้ไปที่ Windows built-in | ตรวจสอบ PATH: Coreutils ต้องอยู่ก่อน `system32` ใน PATH |
+| PowerShell 5 ไม่รองรับ Coreutils | อัปเกรดเป็น PowerShell 7 ก่อน: `winget install --id Microsoft.PowerShell --exact` |
 
----
-
-## หมายเหตุ: ทำไมไม่ใช้ WSL?
-
-Antigravity 2.0 มีปัญหากับ WSL:
-- `agy` launcher เสียหลังอัปเดต 2.0
-- OAuth login ล้มเหลวใน WSL boundary
-- Skills ติดตั้งไปที่ Windows filesystem แต่ Antigravity ใน WSL อ่านไม่ได้
-- Browser agent ไม่สามารถสื่อสารกับ Chrome บน Windows host
-
-ใช้ native Windows ตรงๆ ดีกว่า WSL สำหรับ Antigravity ทุกกรณี
