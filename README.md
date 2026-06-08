@@ -43,7 +43,7 @@
 | **Node.js + npm** | จำเป็นสำหรับ Claude Code Plugins |
 | **pipx** | ติดตั้ง Python CLI tools แบบ isolated |
 | **uv** | Python package installer ที่เร็ว |
-| **Gemini CLI** | AI coding assistant จาก Google |
+| **Antigravity CLI (`agy`)** | AI coding agent จาก Google (replaces Gemini CLI June 18, 2026) |
 | **Claude Code CLI** | AI coding assistant จาก Anthropic |
 | **Antigravity** | Agentic IDE จาก Google |
 | **VS Code** | Code editor |

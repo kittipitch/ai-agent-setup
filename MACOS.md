@@ -108,45 +108,75 @@ npm --version
 
 ---
 
-## 5. ติดตั้ง AI CLI Tools (Gemini & Claude)
+## 5. ติดตั้ง Antigravity Ecosystem
 
-### กรณีใช้ gemini-cli
-ติดตั้งเครื่องมือ Gemini CLI ของ Google:
+Antigravity มี 3 ส่วน — ติดตั้งทีละส่วน:
+
+### 5a. Antigravity CLI (`agy`)
+
+> ตั้งแต่วันที่ 18 มิถุนายน 2026 Gemini CLI หยุดให้บริการสำหรับ free/student accounts — `agy` คือเครื่องมือทดแทนอย่างเป็นทางการ
+
+ติดตั้งด้วย official install script:
+
 ```bash
-npm install -g @google/gemini-cli
+curl -fsSL https://antigravity.google/cli/install.sh | bash
 ```
 
-**การยืนยันตัวตน (Authentication):**
-1. รันคำสั่ง `gemini` เป็นครั้งแรก
-2. เลือก **Sign in with Google** บนหน้าจอเพื่อเข้าสู่ระบบ
+ปิดแล้วเปิด Terminal ใหม่ จากนั้นตรวจสอบ:
 
-### กรณีใช้ claude code
-ติดตั้งเวอร์ชันล่าสุดด้วยคำสั่งเดียว:
+```bash
+agy --version
+```
+
+Login ด้วย Google Account (เปิด browser อัตโนมัติ):
+
+```bash
+agy auth login
+```
+
+> ถ้า browser เปิดไม่ได้: `agy auth login --no-browser` แล้วเปิด URL ที่แสดงใน browser เอง
+
+### 5b. Antigravity 2.0 Desktop App
+
+ดาวน์โหลดจาก [antigravity.google](https://antigravity.google)
+
+### 5c. Antigravity IDE Extension (VS Code)
+
+ถ้าใช้ VS Code:
+
+```bash
+code --install-extension google.antigravity-ide
+```
+
+ถ้าใช้ **Zed**: Antigravity CLI integrate ผ่าน ACP (Agent Client Protocol) อัตโนมัติ — ไม่ต้องติดตั้ง extension แยก
+
+---
+
+## 6. ติดตั้ง Zed Editor (Student Plan — $10/month)
+
+```bash
+brew install --cask zed
+```
+
+> สำหรับ Student Plan: สมัครผ่าน [zed.dev/pricing](https://zed.dev/pricing) ด้วย email มหาวิทยาลัย
+
+**VS Code (ทางเลือก):**
+
+1. ติดตั้ง [VS Code](https://code.visualstudio.com/)
+
+---
+
+## 7. Claude Code CLI (Optional — สำหรับดู instructor demo)
+
 ```bash
 curl -fsSL https://claude.ai/install.sh | bash
 ```
 
-### เริ่มต้นใช้งาน
+ตรวจสอบ:
+
 ```bash
-claude
-# ทำตามขั้นตอน Login บนหน้าจอ
+claude --version
 ```
-
----
-
-## 6. ติดตั้ง Editor และ Extensions
-
-1. ติดตั้ง [VS Code](https://code.visualstudio.com/)
-2. **Claude Extension**: ค้นหา "Claude" ใน Marketplace และติดตั้งเวอร์ชันทางการจาก **Anthropic** (หรือ Claude Dev)
-
----
-
-## 7. ติดตั้ง Antigravity
-
-**Antigravity** เป็น Agentic IDE จาก Google ที่ออกแบบมาเพื่อการทำงานร่วมกับ AI Agent อย่างเต็มรูปแบบ
-
-1. ดาวน์โหลดและติดตั้งจาก: [https://antigravity.google/](https://antigravity.google/)
-2. ลงชื่อเข้าใช้งานด้วยบัญชี Google เพื่อเปิดใช้งานความสามารถของ Agentic AI
 
 ---
 
@@ -169,8 +199,8 @@ uvx --version      # Run Python packages without installing
 bun --version      # JavaScript runtime
 node --version     # Node.js (v24+)
 npm --version      # Node package manager
-gemini --version   # Gemini CLI
-claude --version   # Claude Code CLI
+agy --version      # Antigravity CLI
+claude --version   # Claude Code CLI (Optional)
 ```
 
 หากทุกอย่างแสดงเวอร์ชันถูกต้อง แสดงว่าคุณพร้อมใช้งานแล้ว! 🎉

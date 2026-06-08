@@ -39,7 +39,7 @@ winget install --id Microsoft.PowerShell --exact
 ปิดแล้วเปิด PowerShell ใหม่ (ใช้ PowerShell 7 จากนี้ไป) จากนั้นติดตั้ง Microsoft Coreutils:
 
 ```powershell
-winget install --id Microsoft.CoreUtils --exact
+winget install --id Microsoft.Coreutils --exact
 ```
 
 Microsoft Coreutils นำ Unix commands มาสู่ Windows โดยไม่ต้องใช้ WSL: `ls`, `grep`, `find`, `cat`, `cp`, `mv` และอีก 70+ คำสั่ง
