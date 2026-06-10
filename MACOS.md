@@ -128,13 +128,13 @@ curl -fsSL https://antigravity.google/cli/install.sh | bash
 agy --version
 ```
 
-Login ด้วย Google Account (เปิด browser อัตโนมัติ):
+Login: เปิด `agy` ครั้งแรก — login อัตโนมัติด้วย Google Account ผ่าน browser + keyring ของ OS (ไม่มีคำสั่ง `agy auth login`):
 
 ```bash
-agy auth login
+agy
 ```
 
-> ถ้า browser เปิดไม่ได้: `agy auth login --no-browser` แล้วเปิด URL ที่แสดงใน browser เอง
+> ถ้า browser เปิดไม่ได้: agy จะแสดง auth URL ใน terminal — เปิด URL นั้นใน browser เอง แล้วนำ code กลับมาวางใน terminal
 
 ### 5b. Antigravity 2.0 Desktop App
 

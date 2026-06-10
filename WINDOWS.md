@@ -26,7 +26,19 @@ winget --version
 
 ---
 
-### 2. PowerShell 7.4+ และ Microsoft Coreutils
+### 2. Windows Terminal, PowerShell 7.4+ และ Microsoft Coreutils
+
+ตรวจสอบว่ามี Windows Terminal หรือยัง (Windows 11 มีมาให้แล้ว — Windows 10 รุ่นเก่าอาจยังไม่มี):
+
+```powershell
+winget list --id Microsoft.WindowsTerminal
+```
+
+ถ้าไม่มี ให้ติดตั้ง:
+
+```powershell
+winget install Microsoft.WindowsTerminal
+```
 
 > PowerShell 7.4+ จำเป็นสำหรับ Microsoft Coreutils (Coreutils ไม่ทำงานบน PowerShell 5)
 
@@ -246,7 +258,7 @@ agy --version
 | `agy` ไม่รู้จัก | ปิด PowerShell แล้วเปิดใหม่ (installer แก้ไข PATH อัตโนมัติ) |
 | `bun` ไม่รู้จัก | ปิด PowerShell แล้วเปิดใหม่ (installer แก้ไข PATH อัตโนมัติ) |
 | winget ไม่มี | ติดตั้ง App Installer จาก Microsoft Store |
-| `agy auth login` เปิด browser ไม่ได้ | ใช้ `agy auth login --no-browser` แล้ววาง URL ใน browser เอง |
+| เปิด `agy` ครั้งแรกแล้ว browser ไม่เปิด | agy จะแสดง auth URL ใน terminal — เปิด URL นั้นใน browser เอง แล้วนำ code กลับมาวางใน terminal |
 | Coreutils `find` ยังชี้ไปที่ Windows built-in | ตรวจสอบ PATH: Coreutils ต้องอยู่ก่อน `system32` ใน PATH |
 | PowerShell 5 ไม่รองรับ Coreutils | อัปเกรดเป็น PowerShell 7 ก่อน: `winget install --id Microsoft.PowerShell --exact` |
 
