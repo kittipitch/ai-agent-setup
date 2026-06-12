@@ -186,10 +186,11 @@ agy
 - **Antigravity 2.0** — Desktop app (multi-agent orchestration)
 - **Antigravity IDE** — IDE / editor
 
-> ถ้าใช้ **Zed**: ใช้ Zed AI (built-in) แทน Antigravity IDE
+<!-- Zed dropped (not using): > ถ้าใช้ **Zed**: ใช้ Zed AI (built-in) แทน Antigravity IDE -->
 
 ---
 
+<!-- Zed dropped (not using):
 ### 9. Zed Editor (Student Plan — $10/month)
 
 ดาวน์โหลดจาก [zed.dev](https://zed.dev) หรือ:
@@ -199,10 +200,9 @@ winget install --id Zed.Zed --exact
 ```
 
 > สำหรับ Student Plan: สมัครผ่าน [zed.dev/pricing](https://zed.dev/pricing) ด้วย email มหาวิทยาลัย
+-->
 
----
-
-### 10. Claude Code CLI (Optional — สำหรับดู instructor demo)
+### 9. Claude Code CLI (Optional — สำหรับดู instructor demo)
 
 ```powershell
 npm install -g @anthropic-ai/claude-code
@@ -216,7 +216,7 @@ claude --version
 
 ---
 
-### 11. agy Plugins (Skills)
+### 10. agy Plugins (Skills)
 
 ติดตั้ง plugins ที่ใช้ใน Workshop (ใช้ full GitHub URL — agy ยังไม่รองรับ shorthand `user/repo`):
 

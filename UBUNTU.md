@@ -166,12 +166,17 @@ agy
 code --install-extension google.antigravity-ide
 ```
 
-ถ้าใช้ **Zed**: Antigravity CLI integrate ผ่าน ACP (Agent Client Protocol) อัตโนมัติ — ไม่ต้องติดตั้ง extension แยก
+<!-- Zed dropped (not using): ถ้าใช้ **Zed**: Antigravity CLI integrate ผ่าน ACP (Agent Client Protocol) อัตโนมัติ — ไม่ต้องติดตั้ง extension แยก -->
 
 ---
 
-## 7. ติดตั้ง Zed Editor (Student Plan — $10/month)
+## 7. ติดตั้ง Code Editor (VS Code)
 
+1. ติดตั้ง [VS Code](https://code.visualstudio.com/)
+2. ติดตั้ง Antigravity IDE extension: `code --install-extension google.antigravity-ide`
+3. **สำหรับ WSL**: ติดตั้ง Extension ชื่อ **"WSL"**
+
+<!-- Zed dropped (not using):
 ดาวน์โหลดจาก [zed.dev](https://zed.dev) หรือ:
 
 ```bash
@@ -179,11 +184,8 @@ curl https://zed.dev/install.sh | sh
 ```
 
 > สำหรับ Student Plan: สมัครผ่าน [zed.dev/pricing](https://zed.dev/pricing) ด้วย email มหาวิทยาลัย
+-->
 
-**VS Code (ทางเลือก):**
-
-1. ติดตั้ง [VS Code](https://code.visualstudio.com/)
-2. **สำหรับ WSL**: ติดตั้ง Extension ชื่อ **"WSL"**
 
 ---
 
