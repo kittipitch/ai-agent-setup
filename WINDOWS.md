@@ -232,7 +232,7 @@ agy plugins install https://github.com/obra/superpowers
 
 > **rtk** และ **GSD** ติดตั้งในคาบเรียน (S2/S3):
 > - rtk: `rtk init -g --gemini` + เพิ่มกฎ "prefix shell commands with `rtk`" ใน GEMINI.md
-> - GSD: `ln -s ~/.gemini/antigravity-cli ~/.gemini/antigravity` แล้ว `npx @opengsd/gsd-core@latest`
+> - GSD: `npx @opengsd/gsd-core@latest --antigravity --global --config-dir ~/.gemini/config --profile=full` แล้วรีสตาร์ท `agy` (คำสั่ง `/gsd-*`)
 
 ---
 

@@ -201,6 +201,10 @@ curl -fsSL https://claude.ai/install.sh | bash
 claude --version
 ```
 
+> **rtk** และ **GSD** ติดตั้งในคาบเรียน (S2/S3):
+> - rtk: `rtk init -g --gemini` + เพิ่มกฎ "prefix shell commands with `rtk`" ใน GEMINI.md
+> - GSD: `npx @opengsd/gsd-core@latest --antigravity --global --config-dir ~/.gemini/config --profile=full` แล้วรีสตาร์ท `agy` (คำสั่ง `/gsd-*`)
+
 ---
 
 ## เสร็จสิ้น!
