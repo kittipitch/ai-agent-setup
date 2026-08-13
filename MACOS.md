@@ -7,7 +7,7 @@
 ## ข้อกำหนดเบื้องต้น (Prerequisites)
 
 คู่มือนี้ถือว่าคุณมี:
-- **macOS** รุ่นที่รองรับ (macOS 10.15 Catalina ขึ้นไป)
+- **macOS 14 (Sonoma) หรือใหม่กว่า**
 - **Homebrew** ติดตั้งแล้ว
 
 หากยังไม่มี Homebrew ให้ติดตั้งก่อน:
@@ -28,7 +28,7 @@
 > - **pipx** - ติดตั้ง Python CLI tools แบบ isolated
 > - **uv** - Python package installer ที่เร็ว (รวม `uvx` command สำหรับ run packages โดยไม่ต้อง install)
 >
-> **หมายเหตุ**: macOS มี Python มาให้ตั้งแต่รุ่น Catalina หากต้องการ Python เวอร์ชันอื่น สามารถติดตั้งผ่าน Homebrew: `brew install python@3.12`
+> **หมายเหตุ**: macOS มี Python มาให้ หากต้องการ Python เวอร์ชันจาก Homebrew ให้ใช้ `brew install python`
 
 ```bash
 # ติดตั้ง Git และ GitHub CLI
@@ -65,7 +65,7 @@ gh auth login
 
 ## 3. ติดตั้ง Runtime หลัก (Bun)
 
-เราใช้ **Bun** เป็น runtime หลักในการรันโปรเจกต์และ AI Agent
+เราใช้ **Bun** เป็น runtime หลักในการรันโปรเจกต์และ labs ของ Workshop
 
 ```bash
 # ติดตั้ง Bun
@@ -87,7 +87,7 @@ bun --version  # ควรได้ 1.x.x ขึ้นไป
 >
 > Plugin บางตัวของ Claude Code (เช่น **claude-mem**, **MemPalace**) ใช้ Node.js ใน hooks ที่ทำงานใน clean environment หากติดตั้ง Node ผ่าน NVM/FNM plugin จะหา `node` ไม่เจอและเกิด error ได้
 >
-> **แนะนำ**: Node.js **24** หรือเวอร์ชัน **20 ขึ้นไป** | npm จะติดตั้งมาพร้อมกับ Node.js อัตโนมัติ
+> **แนะนำ**: Node.js **24** หรือเวอร์ชัน **22 ขึ้นไป** | npm จะติดตั้งมาพร้อมกับ Node.js อัตโนมัติ
 
 ```bash
 # ติดตั้ง Node.js 24 ผ่าน Homebrew
@@ -109,66 +109,14 @@ npm --version
 
 ---
 
-## 5. ติดตั้ง Antigravity Ecosystem
+## 5. ติดตั้ง Claude Code CLI (จำเป็น)
 
-Antigravity มี 3 ส่วน — ติดตั้งทีละส่วน:
+Claude Code เป็น AI coding agent หลักของ Workshop นี้ และวางหลัง Node.js เพราะ plugin hooks ต้องเห็น global Node ใน clean environment
 
-### 5a. Antigravity CLI (`agy`)
-
-> ตั้งแต่วันที่ 18 มิถุนายน 2026 Gemini CLI หยุดให้บริการสำหรับ free/student accounts — `agy` คือเครื่องมือทดแทนอย่างเป็นทางการ
+> [!IMPORTANT]
+> ต้องใช้ **paid Claude account**: Pro, Max, Team, Enterprise หรือ Console API; free Claude.ai plan ยังใช้ Claude Code ไม่ได้
 
 ติดตั้งด้วย official install script:
-
-```bash
-curl -fsSL https://antigravity.google/cli/install.sh | bash
-```
-
-ปิดแล้วเปิด Terminal ใหม่ จากนั้นตรวจสอบ:
-
-```bash
-agy --version
-```
-
-Login: เปิด `agy` ครั้งแรก — login อัตโนมัติด้วย Google Account ผ่าน browser + keyring ของ OS (ไม่มีคำสั่ง `agy auth login`):
-
-```bash
-agy
-```
-
-> ถ้า browser เปิดไม่ได้: agy จะแสดง auth URL ใน terminal — เปิด URL นั้นใน browser เอง แล้วนำ code กลับมาวางใน terminal
-
-### 5b. Antigravity 2.0 Desktop App
-
-ดาวน์โหลดจาก [antigravity.google](https://antigravity.google)
-
-### 5c. Antigravity IDE Extension (VS Code)
-
-ถ้าใช้ VS Code:
-
-```bash
-code --install-extension google.antigravity-ide
-```
-
-<!-- Zed dropped (not using): ถ้าใช้ **Zed**: Antigravity CLI integrate ผ่าน ACP (Agent Client Protocol) อัตโนมัติ — ไม่ต้องติดตั้ง extension แยก -->
-
----
-
-## 6. ติดตั้ง Code Editor (VS Code)
-
-1. ติดตั้ง [VS Code](https://code.visualstudio.com/)
-2. ติดตั้ง Antigravity IDE extension: `code --install-extension google.antigravity-ide`
-
-<!-- Zed dropped (not using):
-```bash
-brew install --cask zed
-```
-> สำหรับ Student Plan: สมัครผ่าน [zed.dev/pricing](https://zed.dev/pricing) ด้วย email มหาวิทยาลัย
--->
-
-
----
-
-## 7. Claude Code CLI (Optional — สำหรับดู instructor demo)
 
 ```bash
 curl -fsSL https://claude.ai/install.sh | bash
@@ -178,11 +126,19 @@ curl -fsSL https://claude.ai/install.sh | bash
 
 ```bash
 claude --version
+claude doctor
 ```
 
 > **rtk** และ **GSD** ติดตั้งในคาบเรียน (S2/S3):
-> - rtk: `rtk init -g --gemini` + เพิ่มกฎ "prefix shell commands with `rtk`" ใน GEMINI.md
-> - GSD: `npx @opengsd/gsd-core@latest --antigravity --global --config-dir ~/.gemini/config --profile=full` แล้วรีสตาร์ท `agy` (คำสั่ง `/gsd-*`)
+> - rtk: ตั้งค่าให้ใช้กับ Claude Code และเพิ่มกฎ "prefix shell commands with `rtk`" ใน `CLAUDE.md` ตามคำสั่งในคาบเรียน
+> - GSD: ใช้ `npx @opengsd/gsd-core@latest` (gsd-core 1.10.0) แล้วเลือก Claude Code/runtime และ global/local แบบ interactive จากนั้นรีสตาร์ท `claude` (คำสั่ง `/gsd-*`)
+
+---
+
+## 6. ติดตั้ง Code Editor (VS Code)
+
+1. ติดตั้ง [VS Code](https://code.visualstudio.com/)
+2. ติดตั้ง Claude Code extension: `code --install-extension anthropic.claude-code`
 
 ---
 
@@ -205,8 +161,8 @@ uvx --version      # Run Python packages without installing
 bun --version      # JavaScript runtime
 node --version     # Node.js (v24+)
 npm --version      # Node package manager
-agy --version      # Antigravity CLI
-claude --version   # Claude Code CLI (Optional)
+claude --version   # Claude Code CLI
+claude doctor      # Claude Code diagnostics
 ```
 
 หากทุกอย่างแสดงเวอร์ชันถูกต้อง แสดงว่าคุณพร้อมใช้งานแล้ว! 🎉
@@ -216,7 +172,7 @@ claude --version   # Claude Code CLI (Optional)
 ## เคล็ดลับเพิ่มเติม (macOS Tips)
 
 ### ใช้ `.zshrc` แทน `.bashrc`
-macOS Catalina ขึ้นไปใช้ **zsh** เป็น default shell การแก้ไข config ควรทำใน `~/.zshrc`
+macOS ใช้ **zsh** เป็น default shell การแก้ไข config ควรทำใน `~/.zshrc`
 
 ### ติดตั้งเครื่องมือเพิ่มเติมผ่าน Homebrew
 ```bash

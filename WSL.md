@@ -20,25 +20,26 @@
 
 ## 2. เปิดใช้งานฟีเจอร์ WSL
 
-เปิด PowerShell (Administrator) แล้วรัน:
+บน Windows 10 22H2 หรือ Windows 11 คำสั่ง `wsl --install` ในขั้นตอนถัดไปจะเปิด WSL features ที่จำเป็นให้อัตโนมัติ
 
-```powershell
-# เปิดใช้งาน Windows Subsystem for Linux
-dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
-
-# เปิดใช้งาน Virtual Machine Platform
-dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
-```
+> [!NOTE]
+> ถ้า `wsl --install` ล้มเหลวเพราะ WSL features ยังไม่ถูกเปิด ให้เปิด PowerShell (Administrator) แล้วรัน fallback นี้ จากนั้นรีสตาร์ทเครื่อง:
+>
+> ```powershell
+> # เปิดใช้งาน Windows Subsystem for Linux
+> dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+>
+> # เปิดใช้งาน Virtual Machine Platform
+> dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+> ```
 
 ![เปิดฟีเจอร์ WSL](https://github.com/kittipitch/cs111env/raw/main/images/windows/img06_win_features_on.png)
-
-**รีสตาร์ทเครื่อง** เมื่อเสร็จสิ้น
 
 ---
 
 ## 3. ติดตั้ง WSL และ Ubuntu
 
-หลังจากรีสตาร์ทเครื่อง ให้รัน:
+เปิด PowerShell (Administrator) แล้วรัน:
 
 ```powershell
 # อัปเดต WSL
@@ -123,11 +124,11 @@ nano "$HOME_DIR/.wslconfig"
 
 ```ini
 [wsl2]
-memory=2GB
-processors=1
+memory=8GB
+processors=4
 ```
 
-> **หมายเหตุ**: `memory` คือ RAM สูงสุดที่ WSL ใช้ได้, `processors` คือจำนวน CPU cores
+> **หมายเหตุ**: `memory` คือ RAM สูงสุดที่ WSL ใช้ได้, `processors` คือจำนวน CPU cores; ถ้าเครื่อง RAM น้อยมากค่อยลดเป็น `memory=2GB` เป็น fallback แต่ Claude Code ต้องการ RAM 4GB+ จึงไม่ควรจำกัด WSL ต่ำเกินไป
 
 หลังจากแก้ไขให้รีสตาร์ท WSL:
 ```powershell
@@ -144,11 +145,9 @@ wsl --shutdown
 ### [UBUNTU.md](UBUNTU.md)
 
 คู่มือนี้จะแนะนำการติดตั้ง:
+- Claude Code CLI
+- VS Code + Claude Code extension
 - Git, GitHub CLI (gh)
 - Python tools (pipx, uv)
 - Bun Runtime
 - Node.js + npm (Global installation)
-- Antigravity CLI (`agy`)
-- Claude Code CLI
-- VS Code + Extensions
-- Antigravity 2.0 Desktop + Antigravity IDE extension

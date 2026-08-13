@@ -40,19 +40,19 @@
 
 | เครื่องมือ | ใช้สำหรับ |
 |--------------|-------------|
+| **Claude Code CLI** | AI coding agent หลักของ Workshop |
+| **VS Code** | Code editor พร้อม Claude Code extension |
 | **Git** | จัดการ version control |
 | **GitHub CLI (gh)** | ทำงานกับ GitHub ผ่าน command line |
-| **Bun** | JavaScript runtime หลัก |
-| **Node.js + npm** | จำเป็นสำหรับ Claude Code Plugins |
+| **Bun** | JavaScript runtime หลักสำหรับโปรเจกต์และ labs |
+| **Node.js + npm** | จำเป็นสำหรับ Claude Code plugin hooks |
 | **pipx** | ติดตั้ง Python CLI tools แบบ isolated |
 | **uv** | Python package installer ที่เร็ว |
-| **Antigravity CLI (`agy`)** | AI coding agent จาก Google (มาแทน Gemini CLI ตั้งแต่ 18 มิถุนายน 2026) |
-| **Claude Code CLI** | AI coding assistant จาก Anthropic |
-| **Antigravity** | Agentic IDE จาก Google |
-| **VS Code** | Code editor |
 
 > [!IMPORTANT]
-> **Node.js ต้องติดตั้งแบบ Global** (ไม่ใช่ผ่าน NVM/FNM) เพื่อให้ Claude Code Plugins ทำงานได้
+> ต้องมี **paid Claude account**: Pro, Max, Team, Enterprise หรือ Console API; free Claude.ai plan ยังใช้ Claude Code ไม่ได้
+>
+> **Node.js ต้องติดตั้งแบบ Global** (ไม่ใช่ผ่าน NVM/FNM) เพื่อให้ Claude Code plugin hooks ทำงานได้
 
 ---
 
@@ -63,7 +63,7 @@
 - จัดการโปรเจกต์ด้วย Git/GitHub
 - รัน JavaScript/TypeScript ด้วย Bun
 - ใช้ Python tools ที่ทันสมัย (uv, pipx)
-- ใช้ Claude Code CLI และ Plugins ได้อย่างเต็มประสิทธิภาพ
+- ใช้ Claude Code CLI และ plugin ได้อย่างเต็มประสิทธิภาพ
 
 ---
 

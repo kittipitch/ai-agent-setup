@@ -17,7 +17,7 @@ PowerShell ยังมีหน้าที่เดียวที่ถูก
 - Windows 10 เวอร์ชัน 22H2 (build 19045) ขึ้นไป หรือ Windows 11
 - เปิด virtualization ใน BIOS/UEFI แล้ว
 - GitHub Account
-- Google Account
+- paid Claude account: Pro, Max, Team, Enterprise หรือ Console API (free Claude.ai plan ยังใช้ Claude Code ไม่ได้)
 
 ---
 
@@ -35,7 +35,7 @@ PowerShell ยังมีหน้าที่เดียวที่ถูก
 
 #### [UBUNTU.md](UBUNTU.md)
 
-หลังจากเข้า Ubuntu shell แล้ว ให้ติดตั้ง Git, GitHub CLI, Node.js, Bun, Python tools, Antigravity, Claude Code และเครื่องมืออื่นๆ ตามคู่มือ Ubuntu
+หลังจากเข้า Ubuntu shell แล้ว ให้ติดตั้ง Claude Code, Git, GitHub CLI, Node.js, Bun, Python tools และเครื่องมืออื่นๆ ตามคู่มือ Ubuntu
 
 ---
 

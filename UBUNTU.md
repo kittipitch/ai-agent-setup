@@ -28,8 +28,11 @@ sudo apt update; sudo apt upgrade -y
 > - **uv** - Python package installer ที่เร็ว (รวม `uvx` command สำหรับ run packages โดยไม่ต้อง install)
 
 ```bash
-# ติดตั้ง Git และ GitHub CLI
-sudo apt update && sudo apt install -y git gh
+# ติดตั้ง Git จาก Ubuntu apt
+sudo apt update && sudo apt install -y git
+
+# ติดตั้ง GitHub CLI จาก official apt repository
+(type -p wget >/dev/null || (sudo apt update && sudo apt install wget -y)) && sudo mkdir -p -m 755 /etc/apt/keyrings && out=$(mktemp) && wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg && cat $out | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null && sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg && sudo mkdir -p -m 755 /etc/apt/sources.list.d && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null && sudo apt update && sudo apt install gh -y
 
 # ติดตั้ง Packages พื้นฐาน (Python)
 sudo apt install -y python3-pip python3-venv
@@ -65,7 +68,7 @@ gh auth login
 
 ## 4. ติดตั้ง Runtime หลัก (Bun)
 
-เราใช้ **Bun** เป็น runtime หลักในการรันโปรเจกต์และ AI Agent
+เราใช้ **Bun** เป็น runtime หลักในการรันโปรเจกต์และ labs ของ Workshop
 
 ติดตั้ง `unzip` ก่อน (Bun ต้องการ):
 ```bash
@@ -92,12 +95,13 @@ bun --version  # ควรได้ 1.x.x ขึ้นไป
 >
 > Plugin บางตัวของ Claude Code (เช่น **claude-mem**, **MemPalace**) ใช้ Node.js ใน hooks ที่ทำงานใน clean environment หากติดตั้ง Node ผ่าน NVM/FNM plugin จะหา `node` ไม่เจอและเกิด error ได้
 >
-> **แนะนำ**: Node.js **24** หรือเวอร์ชัน **20 ขึ้นไป** | npm จะติดตั้งมาพร้อมกับ Node.js อัตโนมัติ
+> **แนะนำ**: Node.js **24** หรือเวอร์ชัน **22 ขึ้นไป** | npm จะติดตั้งมาพร้อมกับ Node.js อัตโนมัติ
 
 ```bash
 # ติดตั้ง Node.js 24 ผ่าน NodeSource repository (เวอร์ชันล่าสุด)
-curl -fsSL https://deb.nodesource.com/setup_24.x | sudo -E bash -
-sudo apt-get install -y nodejs
+curl -fsSL https://deb.nodesource.com/setup_24.x -o nodesource_setup.sh
+sudo -E bash nodesource_setup.sh
+sudo apt install -y nodejs
 
 # ตรวจสอบเวอร์ชัน
 node --version
@@ -124,80 +128,14 @@ npm --version
 
 ---
 
-## 6. ติดตั้ง Antigravity Ecosystem
+## 6. ติดตั้ง Claude Code CLI (จำเป็น)
 
-Antigravity มี 3 ส่วน — ติดตั้งทีละส่วน:
+Claude Code เป็น AI coding agent หลักของ Workshop นี้ และวางหลัง Node.js เพราะ plugin hooks ต้องเห็น global Node ใน clean environment
 
-### 6a. Antigravity CLI (`agy`)
-
-> ตั้งแต่วันที่ 18 มิถุนายน 2026 Gemini CLI หยุดให้บริการสำหรับ free/student accounts — `agy` คือเครื่องมือทดแทนอย่างเป็นทางการ
+> [!IMPORTANT]
+> ต้องใช้ **paid Claude account**: Pro, Max, Team, Enterprise หรือ Console API; free Claude.ai plan ยังใช้ Claude Code ไม่ได้
 
 ติดตั้งด้วย official install script:
-
-```bash
-curl -fsSL https://antigravity.google/cli/install.sh | bash
-```
-
-ปิดแล้วเปิด Terminal ใหม่ จากนั้นตรวจสอบ:
-
-```bash
-agy --version
-```
-
-Login: เปิด `agy` ครั้งแรก — login อัตโนมัติด้วย Google Account ผ่าน browser + keyring ของ OS (ไม่มีคำสั่ง `agy auth login`):
-
-```bash
-agy
-```
-
-> ถ้า browser เปิดไม่ได้ (SSH session หรือ WSL): agy จะแสดง auth URL ใน terminal — เปิด URL นั้นใน browser บนเครื่อง local แล้วนำ code กลับมาวางใน terminal
-
-### 6b. Antigravity 2.0 Desktop App
-
-ดาวน์โหลดจาก [antigravity.google](https://antigravity.google)
-
-> [!IMPORTANT]
-> **ผู้ใช้ WSL**: ติดตั้งเวอร์ชัน **Windows** บนเครื่อง Windows ไม่ใช่ใน Ubuntu
-> (Antigravity 2.0 Desktop เป็น GUI app - ติดตั้ง `.deb` ใน WSL ต้องพึ่ง WSLg และได้ผลแย่กว่า)
-
-> Linux (ไม่ใช่ WSL): ดาวน์โหลด `.deb` หรือ `.AppImage` จากหน้าดาวน์โหลดบนเว็บไซต์
-
-### 6c. Antigravity IDE Extension (VS Code)
-
-ถ้าใช้ VS Code:
-
-```bash
-code --install-extension google.antigravity-ide
-```
-
-<!-- Zed dropped (not using): ถ้าใช้ **Zed**: Antigravity CLI integrate ผ่าน ACP (Agent Client Protocol) อัตโนมัติ — ไม่ต้องติดตั้ง extension แยก -->
-
----
-
-## 7. ติดตั้ง Code Editor (VS Code)
-
-1. ติดตั้ง [VS Code](https://code.visualstudio.com/)
-2. ติดตั้ง Antigravity IDE extension: `code --install-extension google.antigravity-ide`
-
-> [!IMPORTANT]
-> **ผู้ใช้ WSL**: ติดตั้ง VS Code เวอร์ชัน **Windows** บนเครื่อง Windows (ไม่ใช่ใน Ubuntu)
-> จากนั้นติดตั้ง extension ชื่อ **WSL** ใน VS Code ฝั่ง Windows
-> แล้วเปิดโปรเจกต์ด้วยคำสั่ง `code .` จาก Ubuntu shell
-
-<!-- Zed dropped (not using):
-ดาวน์โหลดจาก [zed.dev](https://zed.dev) หรือ:
-
-```bash
-curl https://zed.dev/install.sh | sh
-```
-
-> สำหรับ Student Plan: สมัครผ่าน [zed.dev/pricing](https://zed.dev/pricing) ด้วย email มหาวิทยาลัย
--->
-
-
----
-
-## 8. Claude Code CLI (Optional — สำหรับดู instructor demo)
 
 ```bash
 curl -fsSL https://claude.ai/install.sh | bash
@@ -207,11 +145,25 @@ curl -fsSL https://claude.ai/install.sh | bash
 
 ```bash
 claude --version
+claude doctor
 ```
 
 > **rtk** และ **GSD** ติดตั้งในคาบเรียน (S2/S3):
-> - rtk: `rtk init -g --gemini` + เพิ่มกฎ "prefix shell commands with `rtk`" ใน GEMINI.md
-> - GSD: `npx @opengsd/gsd-core@latest --antigravity --global --config-dir ~/.gemini/config --profile=full` แล้วรีสตาร์ท `agy` (คำสั่ง `/gsd-*`)
+> - rtk: ตั้งค่าให้ใช้กับ Claude Code และเพิ่มกฎ "prefix shell commands with `rtk`" ใน `CLAUDE.md` ตามคำสั่งในคาบเรียน
+> - GSD: ใช้ `npx @opengsd/gsd-core@latest` (gsd-core 1.10.0) แล้วเลือก Claude Code/runtime และ global/local แบบ interactive จากนั้นรีสตาร์ท `claude` (คำสั่ง `/gsd-*`)
+
+---
+
+## 7. ติดตั้ง Code Editor (VS Code)
+
+1. ติดตั้ง [VS Code](https://code.visualstudio.com/)
+2. ติดตั้ง Claude Code extension: `code --install-extension anthropic.claude-code`
+
+> [!IMPORTANT]
+> **ผู้ใช้ WSL**: ติดตั้ง VS Code เวอร์ชัน **Windows** บนเครื่อง Windows (ไม่ใช่ใน Ubuntu)
+> ระหว่างติดตั้งให้เลือก **Add to PATH**
+> จากนั้นติดตั้ง extension `ms-vscode-remote.remote-wsl` ใน VS Code ฝั่ง Windows
+> แล้วเปิด project ด้วยคำสั่ง `code .` จาก Ubuntu shell
 
 ---
 
@@ -234,8 +186,8 @@ uvx --version      # Run Python packages without installing
 bun --version      # JavaScript runtime
 node --version     # Node.js (v24+)
 npm --version      # Node package manager
-agy --version      # Antigravity CLI
-claude --version   # Claude Code CLI (Optional)
+claude --version   # Claude Code CLI
+claude doctor      # Claude Code diagnostics
 ```
 
 หากทุกอย่างแสดงเวอร์ชันถูกต้อง แสดงว่าคุณพร้อมใช้งานแล้ว! 🎉
