@@ -156,7 +156,11 @@ agy
 
 ดาวน์โหลดจาก [antigravity.google](https://antigravity.google)
 
-> Linux: ดาวน์โหลด `.deb` หรือ `.AppImage` จากหน้าดาวน์โหลดบนเว็บไซต์
+> [!IMPORTANT]
+> **ผู้ใช้ WSL**: ติดตั้งเวอร์ชัน **Windows** บนเครื่อง Windows ไม่ใช่ใน Ubuntu
+> (Antigravity 2.0 Desktop เป็น GUI app - ติดตั้ง `.deb` ใน WSL ต้องพึ่ง WSLg และได้ผลแย่กว่า)
+
+> Linux (ไม่ใช่ WSL): ดาวน์โหลด `.deb` หรือ `.AppImage` จากหน้าดาวน์โหลดบนเว็บไซต์
 
 ### 6c. Antigravity IDE Extension (VS Code)
 
@@ -174,7 +178,11 @@ code --install-extension google.antigravity-ide
 
 1. ติดตั้ง [VS Code](https://code.visualstudio.com/)
 2. ติดตั้ง Antigravity IDE extension: `code --install-extension google.antigravity-ide`
-3. **สำหรับ WSL**: ติดตั้ง Extension ชื่อ **"WSL"**
+
+> [!IMPORTANT]
+> **ผู้ใช้ WSL**: ติดตั้ง VS Code เวอร์ชัน **Windows** บนเครื่อง Windows (ไม่ใช่ใน Ubuntu)
+> จากนั้นติดตั้ง extension ชื่อ **WSL** ใน VS Code ฝั่ง Windows
+> แล้วเปิดโปรเจกต์ด้วยคำสั่ง `code .` จาก Ubuntu shell
 
 <!-- Zed dropped (not using):
 ดาวน์โหลดจาก [zed.dev](https://zed.dev) หรือ:

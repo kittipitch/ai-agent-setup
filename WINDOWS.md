@@ -2,7 +2,11 @@
 
 คู่มือนี้เป็นจุดเริ่มต้นสำหรับผู้ใช้ **Windows** ใน Workshop **AI-Accelerated Software Development**
 
-Workshop นี้ใช้ **WSL2 + Ubuntu 24.04** เป็นเส้นทางเดียวสำหรับ Windows เราไม่ใช้ PowerShell เป็น development shell และไม่ติดตั้งชุดคำสั่ง Unix ของ Microsoft เพราะคำสั่ง, scripts, skills และ labs ของ Workshop เขียนสำหรับ Linux shell จริง การทำงานใน Ubuntu แท้ช่วยลดปัญหาเรื่อง path, quoting และพฤติกรรมของเครื่องมือที่ต่างกันระหว่าง Windows กับ Linux
+Workshop นี้ใช้ **WSL2 + Ubuntu 24.04** เป็นเส้นทางเดียวสำหรับ Windows
+
+เราไม่ใช้ PowerShell เป็น development shell และไม่ติดตั้ง Microsoft Coreutils เพราะคำสั่ง scripts skills และ labs ของ Workshop เขียนขึ้นสำหรับ Linux shell
+
+การทำงานใน Ubuntu จริงช่วยลดปัญหาเรื่อง path การ quote และพฤติกรรมของเครื่องมือที่ต่างกันระหว่าง Windows กับ Linux
 
 PowerShell ยังมีหน้าที่เดียวที่ถูกต้องในคู่มือนี้: เปิด **Administrator PowerShell** เพื่อรันคำสั่งจัดการ WSL เอง เช่น `wsl --install`, `wsl --update` และ `wsl --shutdown` หลังจากติดตั้ง Ubuntu แล้ว งานทั้งหมดให้ทำใน **Ubuntu shell**
 

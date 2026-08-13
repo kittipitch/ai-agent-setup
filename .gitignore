@@ -1,1 +1,4 @@
 CLAUDE.md
+.DS_Store
+*.bak
+*.bak_*

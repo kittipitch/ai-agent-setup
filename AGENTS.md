@@ -1,19 +1,20 @@
 # AGENTS.md
 
-This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
+This file provides guidance to AI coding agents (Claude Code, Codex, Antigravity) when working with code in this repository.
 
 ## Repository Purpose
 
 This repository contains the **AI-Accelerated Software Development Workshop setup guide** (in Thai). The main content is organized into platform-specific files:
 
 - **README.md** - Hub/index that links to platform-specific guides
+- **WINDOWS.md** - Windows entry point; routes to WSL2 + Ubuntu (the only supported Windows path)
 - **WSL.md** - Windows Subsystem for Linux setup for Windows users
 - **UBUNTU.md** - Ubuntu/WSL installation guide (after WSL is installed)
 - **MACOS.md** - macOS installation guide
 
 ## Skills Templates
 
-The `downloads/` directory contains skill templates that can be imported into Codex. These are specialized subagent configurations.
+The `downloads/` directory contains skill templates that can be imported into Claude Code or another AI agent. These are specialized subagent configurations.
 
 ### Skill Format
 
@@ -58,7 +59,7 @@ Target platforms: **Ubuntu 24.04** and **macOS**. Regular `pip` is NOT used — 
 - `uv`/`uvx` are preferred over pip for speed and reliability
 - `npx` allows running Node packages globally without polluting the system
 
-**IMPORTANT: Node.js must be installed globally** (not via NVM/FNM) for Codex plugins to work properly. Plugins like Codex-mem and MemPalace run hooks in clean environments where NVM/FNM paths aren't available.
+**IMPORTANT: Node.js must be installed globally** (not via NVM/FNM) for Claude Code plugins to work properly. Plugins like claude-mem and MemPalace run hooks in clean environments where NVM/FNM paths aren't available.
 
 **Installation reference:**
 ```bash

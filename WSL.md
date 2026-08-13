@@ -151,4 +151,4 @@ wsl --shutdown
 - Antigravity CLI (`agy`)
 - Claude Code CLI
 - VS Code + Extensions
-- Antigravity Agentic IDE
+- Antigravity 2.0 Desktop + Antigravity IDE extension

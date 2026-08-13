@@ -40,6 +40,7 @@ pipx ensurepath
 
 # ติดตั้ง uv (รวม uvx command สำหรับ run Python packages โดยไม่ต้อง install)
 curl -LsSf https://astral.sh/uv/install.sh | sh
+source $HOME/.local/bin/env
 ```
 
 ---
@@ -93,7 +94,7 @@ bun --version  # ควรได้ 1.x.x ขึ้นไป
 brew install node@24
 
 # เพิ่ม Node.js เข้า PATH (เพิ่มท้าย ~/.zshrc)
-echo 'export PATH="/opt/homebrew/opt/node@24/bin:$PATH"' >> ~/.zshrc
+echo "export PATH=\"$(brew --prefix node@24)/bin:\$PATH\"" >> ~/.zshrc
 source ~/.zshrc
 
 # ตรวจสอบเวอร์ชัน
