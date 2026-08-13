@@ -9,11 +9,14 @@
 คลิกที่คู่มือที่ตรงกับระบบปฏิบัติการของคุณ:
 
 ### 1. Windows Users
-ถ้าคุณใช้ **Windows** ติดตั้งแบบ native (ไม่ต้องใช้ WSL):
+ถ้าคุณใช้ **Windows** ให้ใช้ **WSL2 + Ubuntu** เป็นสภาพแวดล้อมหลัก:
 
-#### [WINDOWS.md](WINDOWS.md) - คู่มือการติดตั้งบน Windows (Native / winget)
+#### [WINDOWS.md](WINDOWS.md) - จุดเริ่มต้นสำหรับ Windows (ผ่าน WSL2 + Ubuntu)
 
-> ต้องการใช้ WSL แทน? ดู [WSL.md](WSL.md) + [UBUNTU.md](UBUNTU.md) (advanced users only)
+อ่าน [WINDOWS.md](WINDOWS.md) ก่อน แล้วทำ 2 ขั้นตอนนี้ตามลำดับ:
+
+1. [WSL.md](WSL.md) - ติดตั้ง WSL2 + Ubuntu 24.04
+2. [UBUNTU.md](UBUNTU.md) - ติดตั้งเครื่องมือทั้งหมดใน Ubuntu
 
 ---
 
@@ -43,7 +46,7 @@
 | **Node.js + npm** | จำเป็นสำหรับ Claude Code Plugins |
 | **pipx** | ติดตั้ง Python CLI tools แบบ isolated |
 | **uv** | Python package installer ที่เร็ว |
-| **Antigravity CLI (`agy`)** | AI coding agent จาก Google (replaces Gemini CLI June 18, 2026) |
+| **Antigravity CLI (`agy`)** | AI coding agent จาก Google (มาแทน Gemini CLI ตั้งแต่ 18 มิถุนายน 2026) |
 | **Claude Code CLI** | AI coding assistant จาก Anthropic |
 | **Antigravity** | Agentic IDE จาก Google |
 | **VS Code** | Code editor |
@@ -59,7 +62,7 @@
 - เขียนโค้ดด้วย AI assistance
 - จัดการโปรเจกต์ด้วย Git/GitHub
 - รัน JavaScript/TypeScript ด้วย Bun
-- ใช้ Python tools ที่ modern (uv, pipx)
+- ใช้ Python tools ที่ทันสมัย (uv, pipx)
 - ใช้ Claude Code CLI และ Plugins ได้อย่างเต็มประสิทธิภาพ
 
 ---
@@ -75,5 +78,5 @@
 
 ## เอกสารเพิ่มเติม
 
-- [CLAUDE.md](CLAUDE.md) - คู่มือสำหรับ Claude Code เมื่อทำงานใน repo นี้
+- [AGENTS.md](AGENTS.md) - คู่มือสำหรับ AI agent เมื่อทำงานใน repo นี้
 - [downloads/](downloads/) - Skill templates สำหรับ Claude Code

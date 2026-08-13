@@ -1,6 +1,9 @@
 # คู่มือการติดตั้ง WSL สำหรับ Windows (WSL Setup Guide)
 
-คู่มือนี้สำหรับผู้ใช้ **Windows** ที่ต้องการติดตั้ง **WSL2 (Windows Subsystem for Linux)** เพื่อให้ได้สภาพแวดล้อมแบบ Linux สำหรับการทำ Workshop **AI-Accelerated Software Development**
+> [!NOTE]
+> ถ้ายังไม่ได้อ่าน [WINDOWS.md](WINDOWS.md) ให้อ่านก่อน - ข้อกำหนดเบื้องต้นและเหตุผลที่ Workshop นี้ใช้ WSL อยู่ในนั้น
+
+คู่มือนี้สำหรับผู้ใช้ **Windows** ทุกคน **WSL2 (Windows Subsystem for Linux)** คือสภาพแวดล้อมที่ Workshop นี้ใช้ เพื่อให้ได้สภาพแวดล้อมแบบ Linux สำหรับการทำ Workshop **AI-Accelerated Software Development**
 
 ---
 
@@ -44,7 +47,7 @@ wsl --update
 # ติดตั้ง WSL
 wsl --install --no-distribution
 
-# ตั้งค่า WSL 2 เป็นค่าเริ่มต้น
+# ตั้งค่า WSL 2 เป็น default version
 wsl --set-default-version 2
 
 # ติดตั้ง Ubuntu 24.04
@@ -70,8 +73,8 @@ wsl --install -d Ubuntu-24.04
 เปิด WSL Terminal แล้วรัน:
 
 ```bash
-# เชื่อมโฟลเดอร์ Windows กับ Ubuntu
-HOME_DIR=$(wslpath -u $(cmd.exe /c echo %USERPROFILE% | tr -d '\r'))
+# สร้าง symlink โฟลเดอร์ Windows มาที่ Ubuntu
+HOME_DIR=$(wslpath -u "$(cmd.exe /c echo %USERPROFILE% 2>/dev/null | tr -d '\r')")
 [[ -e "$HOME_DIR/OneDrive/Desktop" ]] && \
 ln -sf "$HOME_DIR/OneDrive/Desktop" ~/ || \
 ln -sf "$HOME_DIR/Desktop" ~/
@@ -112,8 +115,8 @@ options="metadata,uid=1000,gid=1000,umask=077"
 สร้างไฟล์ `.wslconfig` ในโฟลเดอร์ผู้ใช้ Windows:
 
 ```bash
-HOME_DIR=$(wslpath -u $(cmd.exe /c echo %USERPROFILE% | tr -d '\r'))
-nano $HOME_DIR/.wslconfig
+HOME_DIR=$(wslpath -u "$(cmd.exe /c echo %USERPROFILE% 2>/dev/null | tr -d '\r')")
+nano "$HOME_DIR/.wslconfig"
 ```
 
 เพิ่มข้อมูลต่อไปนี้ (ปรับค่าตามสเปคเครื่อง):
@@ -145,7 +148,7 @@ wsl --shutdown
 - Python tools (pipx, uv)
 - Bun Runtime
 - Node.js + npm (Global installation)
-- Gemini CLI
+- Antigravity CLI (`agy`)
 - Claude Code CLI
 - VS Code + Extensions
 - Antigravity Agentic IDE

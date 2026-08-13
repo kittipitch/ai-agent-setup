@@ -1,253 +1,47 @@
-# คู่มือการติดตั้งบน Windows (Native — ไม่ต้องใช้ WSL)
+# คู่มือการติดตั้งบน Windows (ผ่าน WSL2 + Ubuntu)
 
-> คู่มือนี้ใช้ **winget** (Windows Package Manager) ติดตั้งทุกอย่างใน PowerShell โดยตรง
-> ไม่จำเป็นต้องติดตั้ง WSL
+คู่มือนี้เป็นจุดเริ่มต้นสำหรับผู้ใช้ **Windows** ใน Workshop **AI-Accelerated Software Development**
+
+Workshop นี้ใช้ **WSL2 + Ubuntu 24.04** เป็นเส้นทางเดียวสำหรับ Windows เราไม่ใช้ PowerShell เป็น development shell และไม่ติดตั้งชุดคำสั่ง Unix ของ Microsoft เพราะคำสั่ง, scripts, skills และ labs ของ Workshop เขียนสำหรับ Linux shell จริง การทำงานใน Ubuntu แท้ช่วยลดปัญหาเรื่อง path, quoting และพฤติกรรมของเครื่องมือที่ต่างกันระหว่าง Windows กับ Linux
+
+PowerShell ยังมีหน้าที่เดียวที่ถูกต้องในคู่มือนี้: เปิด **Administrator PowerShell** เพื่อรันคำสั่งจัดการ WSL เอง เช่น `wsl --install`, `wsl --update` และ `wsl --shutdown` หลังจากติดตั้ง Ubuntu แล้ว งานทั้งหมดให้ทำใน **Ubuntu shell**
 
 ---
 
 ## ข้อกำหนดเบื้องต้น
 
-- Windows 10 (1809+) หรือ Windows 11
-- PowerShell 7.4+ (จำเป็นสำหรับ Microsoft Coreutils — ดูขั้นตอนที่ 2)
-- Google Account (สำหรับ Antigravity)
+- Windows 10 เวอร์ชัน 22H2 (build 19045) ขึ้นไป หรือ Windows 11
+- เปิด virtualization ใน BIOS/UEFI แล้ว
 - GitHub Account
+- Google Account
 
 ---
 
 ## ขั้นตอนการติดตั้ง
 
-### 1. ตรวจสอบ winget
+### 1. ติดตั้ง WSL2 + Ubuntu
 
-```powershell
-winget --version
-```
+#### [WSL.md](WSL.md)
 
-ถ้าไม่มี ให้ดาวน์โหลด [App Installer จาก Microsoft Store](https://apps.microsoft.com/store/detail/app-installer/9NBLGGH4NNS1)
+ติดตั้ง WSL2, Ubuntu 24.04, Windows Terminal และตั้งค่า WSL พื้นฐานสำหรับ Workshop
 
 ---
 
-### 2. Windows Terminal, PowerShell 7.4+ และ Microsoft Coreutils
+### 2. ติดตั้งเครื่องมือทั้งหมดใน Ubuntu
 
-ตรวจสอบว่ามี Windows Terminal หรือยัง (Windows 11 มีมาให้แล้ว — Windows 10 รุ่นเก่าอาจยังไม่มี):
+#### [UBUNTU.md](UBUNTU.md)
 
-```powershell
-winget list --id Microsoft.WindowsTerminal
-```
-
-ถ้าไม่มี ให้ติดตั้ง:
-
-```powershell
-winget install Microsoft.WindowsTerminal
-```
-
-> PowerShell 7.4+ จำเป็นสำหรับ Microsoft Coreutils (Coreutils ไม่ทำงานบน PowerShell 5)
-
-ติดตั้ง PowerShell 7:
-
-```powershell
-winget install --id Microsoft.PowerShell --exact
-```
-
-ปิดแล้วเปิด PowerShell ใหม่ (ใช้ PowerShell 7 จากนี้ไป) จากนั้นติดตั้ง Microsoft Coreutils:
-
-```powershell
-winget install --id Microsoft.Coreutils --exact
-```
-
-Microsoft Coreutils นำ Unix commands มาสู่ Windows โดยไม่ต้องใช้ WSL: `ls`, `grep`, `find`, `cat`, `cp`, `mv` และอีก 70+ คำสั่ง
-
-> **หมายเหตุ PATH**: Coreutils ต้องอยู่ก่อน `system32` ใน PATH เพื่อ override Windows built-ins บางคำสั่ง (เช่น `find`) ตรวจสอบหลังติดตั้ง:
-
-```powershell
-Get-Command find | Select-Object -ExpandProperty Source
-```
-
-ตรวจสอบ:
-
-```powershell
-grep --version
-find --version
-```
+หลังจากเข้า Ubuntu shell แล้ว ให้ติดตั้ง Git, GitHub CLI, Node.js, Bun, Python tools, Antigravity, Claude Code และเครื่องมืออื่นๆ ตามคู่มือ Ubuntu
 
 ---
 
-### 3. Git
+## ทำไมไม่ใช้ Windows แบบ native
 
-```powershell
-winget install --id Git.Git --exact
-```
-
-หลังติดตั้ง ปิดแล้วเปิด PowerShell ใหม่ จากนั้นตั้งค่า:
-
-```powershell
-git config --global user.name "Your Name"
-git config --global user.email "your@email.com"
-```
-
----
-
-### 4. GitHub CLI
-
-```powershell
-winget install --id GitHub.cli --exact
-```
-
-Login:
-
-```powershell
-gh auth login
-```
-
----
-
-### 5. Node.js (Global — ไม่ใช้ NVM)
-
-> ต้องติดตั้งแบบ global เท่านั้น เพื่อให้ Claude Code Plugins ทำงานได้
-
-```powershell
-winget install --id OpenJS.NodeJS.LTS --exact
-```
-
-ตรวจสอบ:
-
-```powershell
-node --version
-npm --version
-```
-
----
-
-### 6. Bun
-
-```powershell
-powershell -c "irm bun.sh/install.ps1 | iex"
-```
-
-ตรวจสอบ:
-
-```powershell
-bun --version
-```
-
----
-
-### 7. Python tools (pipx + uv)
-
-```powershell
-winget install --id Python.Python.3.12 --exact
-```
-
-ปิดแล้วเปิด PowerShell ใหม่:
-
-```powershell
-pip install pipx
-pipx ensurepath
-pipx install uv
-```
-
-ตรวจสอบ:
-
-```powershell
-uv --version
-```
-
----
-
-### 8. Antigravity (Google AI Coding Agent)
-
-Antigravity มี 3 ส่วน — ติดตั้งทีละส่วน:
-
-#### 8a. Antigravity CLI (`agy`)
-
-ติดตั้งด้วย PowerShell one-liner (official install method):
-
-```powershell
-irm https://antigravity.google/cli/install.ps1 | iex
-```
-
-ปิดแล้วเปิด PowerShell ใหม่ จากนั้นตรวจสอบ:
-
-```powershell
-agy --version
-```
-
-Login: เปิด `agy` ครั้งแรก — login อัตโนมัติผ่าน browser + keyring ของ OS
-
-```powershell
-agy
-```
-
-> ไม่มีคำสั่ง `agy auth login` — agy login อัตโนมัติเมื่อเปิดครั้งแรก (logout ใช้ `/logout` ใน session)
-
-#### 8b. Antigravity 2.0 Desktop + Antigravity IDE
-
-ไปที่ [antigravity.google/download](https://antigravity.google/download) แล้วดาวน์โหลด **ทั้งสองตัว**:
-
-- **Antigravity 2.0** — Desktop app (multi-agent orchestration)
-- **Antigravity IDE** — IDE / editor
-
-<!-- Zed dropped (not using): > ถ้าใช้ **Zed**: ใช้ Zed AI (built-in) แทน Antigravity IDE -->
-
----
-
-<!-- Zed dropped (not using):
-### 9. Zed Editor (Student Plan — $10/month)
-
-ดาวน์โหลดจาก [zed.dev](https://zed.dev) หรือ:
-
-```powershell
-winget install --id Zed.Zed --exact
-```
-
-> สำหรับ Student Plan: สมัครผ่าน [zed.dev/pricing](https://zed.dev/pricing) ด้วย email มหาวิทยาลัย
--->
-
-### 9. Claude Code CLI (Optional — สำหรับดู instructor demo)
-
-```powershell
-npm install -g @anthropic-ai/claude-code
-```
-
-ตรวจสอบ:
-
-```powershell
-claude --version
-```
-
----
-
-### 10. agy Plugins (Skills)
-
-ติดตั้ง plugins ที่ใช้ใน Workshop (ใช้ full GitHub URL — agy ยังไม่รองรับ shorthand `user/repo`):
-
-```powershell
-# caveman — terse output, ประหยัด token
-agy plugins install https://github.com/JuliusBrussee/caveman
-
-# superpower — surgical TDD (ใช้ใน S2)
-agy plugins install https://github.com/obra/superpowers
-```
-
-ปิดแล้วเปิด `agy` ใหม่ — พิมพ์ `/caveman` เพื่อทดสอบ
-
-> **rtk** และ **GSD** ติดตั้งในคาบเรียน (S2/S3):
-> - rtk: `rtk init -g --gemini` + เพิ่มกฎ "prefix shell commands with `rtk`" ใน GEMINI.md
-> - GSD: `npx @opengsd/gsd-core@latest --antigravity --global --config-dir ~/.gemini/config --profile=full` แล้วรีสตาร์ท `agy` (คำสั่ง `/gsd-*`)
-
----
-
-## ตรวจสอบการติดตั้งทั้งหมด
-
-```powershell
-git --version
-gh --version
-node --version
-bun --version
-uv --version
-agy --version
-```
-
-ถ้าทุกคำสั่งแสดงเวอร์ชัน = พร้อมสำหรับ Workshop
+- เส้นทาง native เดิมใช้ `winget` + PowerShell + Microsoft Coreutils ซึ่งยังมีความต่างจาก Linux shell จริงในหลายจุด
+- Labs ของ Workshop อ้างอิงคำสั่งและพฤติกรรมของ Ubuntu เป็นหลัก การใช้ WSL ทำให้ทุกคนอยู่บนสภาพแวดล้อมเดียวกัน
+- ปัญหา path เช่น `C:\Users\...` เทียบกับ `/home/...` และการ quote คำสั่งซ้อนกันจะลดลงมากเมื่อทำใน Ubuntu
+- เครื่องมือสาย Python/Node และ AI coding agents มักมีเอกสารและตัวอย่างสำหรับ Linux/macOS ก่อน Windows native
+- คู่มือ native เดิมยังถูกเก็บไว้ใน git history (commit `2c4f76a`) สำหรับคนที่จำเป็นต้องดูย้อนหลัง แต่เส้นทางนั้น **ไม่รองรับสำหรับ Workshop นี้**
 
 ---
 
@@ -255,10 +49,7 @@ agy --version
 
 | ปัญหา | วิธีแก้ |
 |:---|:---|
-| `agy` ไม่รู้จัก | ปิด PowerShell แล้วเปิดใหม่ (installer แก้ไข PATH อัตโนมัติ) |
-| `bun` ไม่รู้จัก | ปิด PowerShell แล้วเปิดใหม่ (installer แก้ไข PATH อัตโนมัติ) |
-| winget ไม่มี | ติดตั้ง App Installer จาก Microsoft Store |
-| เปิด `agy` ครั้งแรกแล้ว browser ไม่เปิด | agy จะแสดง auth URL ใน terminal — เปิด URL นั้นใน browser เอง แล้วนำ code กลับมาวางใน terminal |
-| Coreutils `find` ยังชี้ไปที่ Windows built-in | ตรวจสอบ PATH: Coreutils ต้องอยู่ก่อน `system32` ใน PATH |
-| PowerShell 5 ไม่รองรับ Coreutils | อัปเกรดเป็น PowerShell 7 ก่อน: `winget install --id Microsoft.PowerShell --exact` |
-
+| ติดตั้ง WSL ไม่ได้เพราะ virtualization ปิดอยู่ | เปิด VT-x หรือ AMD-V ใน BIOS/UEFI แล้วรีสตาร์ทเครื่อง |
+| `wsl --install` ล้มเหลว หรือ WSL เป็นเวอร์ชันเก่า | เปิด Administrator PowerShell แล้วรัน `wsl --update` จากนั้นรีสตาร์ทเครื่อง |
+| Windows Terminal เปิด PowerShell แทน Ubuntu | ตั้งค่า Default Profile เป็น `Ubuntu-24.04` ตามขั้นตอนใน [WSL.md](WSL.md) |
+| WSL ใช้ RAM มากเกินไป | ตั้งค่า `.wslconfig` เพื่อจำกัด `memory` และ `processors` ตามหัวข้อจำกัดทรัพยากร WSL ใน [WSL.md](WSL.md) |

@@ -57,14 +57,14 @@ gh auth login
 2. **Preferred protocol?** → เลือก `HTTPS`
 3. **Authenticate Git with your credentials?** → เลือก `Yes`
 4. **How would you like to authenticate?** → เลือก `Login with a web browser`
-5. คัดลอก **One-time code** และกด **Enter** เพื่อเปิดเบราว์เซอร์
+5. คัดลอก **One-time code** และกด **Enter** เพื่อเปิดbrowser
 6. วางโค้ดและยืนยันการขอสิทธิ์
 
 ---
 
 ## 3. ติดตั้ง Runtime หลัก (Bun)
 
-เราใช้ **Bun** เป็นเครื่องยนต์หลักในการรันโปรเจกต์และ AI Agent
+เราใช้ **Bun** เป็น runtime หลักในการรันโปรเจกต์และ AI Agent
 
 ```bash
 # ติดตั้ง Bun
@@ -82,9 +82,9 @@ bun --version  # ควรได้ 1.x.x ขึ้นไป
 ## 4. ติดตั้ง Node.js + npm (Global Installation)
 
 > [!IMPORTANT]
-> **ต้องติดตั้ง Node.js แบบ Global (ระดับระบบ)** ไม่ใช่ผ่าน NVM หรือ FNM
+> **ต้องติดตั้ง Node.js แบบ Global** ไม่ใช่ผ่าน NVM หรือ FNM
 >
-> ปลั๊กอินบางตัวของ Claude Code (เช่น **claude-mem**, **MemPalace**) ใช้ Node.js ใน hooks ที่ทำงานในสภาพแวดล้อมที่สะอาด (clean environment) หากติดตั้ง Node ผ่าน NVM/FNM ปลั๊กอินจะหา `node` ไม่เจอและเกิด error ได้
+> Plugin บางตัวของ Claude Code (เช่น **claude-mem**, **MemPalace**) ใช้ Node.js ใน hooks ที่ทำงานใน clean environment หากติดตั้ง Node ผ่าน NVM/FNM plugin จะหา `node` ไม่เจอและเกิด error ได้
 >
 > **แนะนำ**: Node.js **24** หรือเวอร์ชัน **20 ขึ้นไป** | npm จะติดตั้งมาพร้อมกับ Node.js อัตโนมัติ
 
@@ -104,7 +104,7 @@ npm --version
 > [!WARNING]
 > **อย่าใช้ NVM หรือ FNM** สำหรับ Node.js ที่ใช้กับ Claude Code Plugins
 >
-> เครื่องมือจัดการเวอร์ชัน Node เหล่านี้จะติดตั้ง Node ในโฟลเดอร์ผู้ใช้ (`~/.nvm/` หรือ `~/.fnm/`) ซึ่งจะ **ไม่พร้อมใช้งาน** ใน hooks ของปลั๊กอินที่ทำงานในสภาพแวดล้อมใหม่ ส่งผลให้เกิด error ได้
+> Node version manager เหล่านี้จะติดตั้ง Node ในโฟลเดอร์ผู้ใช้ (`~/.nvm/` หรือ `~/.fnm/`) ซึ่งจะ **ไม่พร้อมใช้งาน** ใน hooks ของ plugin ที่ทำงานใน clean environment ส่งผลให้เกิด error ได้
 
 ---
 
@@ -215,7 +215,7 @@ claude --version   # Claude Code CLI (Optional)
 ## เคล็ดลับเพิ่มเติม (macOS Tips)
 
 ### ใช้ `.zshrc` แทน `.bashrc`
-macOS Catalina ขึ้นไปใช้ **zsh** เป็น default shell การแก้ไขค่าตั้งค่าควรทำใน `~/.zshrc`
+macOS Catalina ขึ้นไปใช้ **zsh** เป็น default shell การแก้ไข config ควรทำใน `~/.zshrc`
 
 ### ติดตั้งเครื่องมือเพิ่มเติมผ่าน Homebrew
 ```bash
