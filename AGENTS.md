@@ -2,6 +2,18 @@
 
 This file provides guidance to AI coding agents (Claude Code, Codex) when working with code in this repository.
 
+## PUSH WITHOUT ASKING
+
+**Standing authorisation (author, 2026-08-16): push this repo as soon as a commit lands, no
+question first.** Participants read these files straight from GitHub before the event, so a
+commit sitting unpushed on one machine is a guide nobody can see. The author also works across
+machines, and unpushed work on the laptop he left behind is lost work.
+
+Push only. Every other destructive git operation still needs asking first, and
+`git reset --hard` / `checkout .` / `restore .` / `clean -fd` are never run at all.
+
+After pushing, `git log --branches --not --remotes --oneline` should be empty.
+
 ## Repository Purpose
 
 This repository contains the **AI-Accelerated Software Development Workshop setup guide** (in Thai). The main content is organized into platform-specific files:
