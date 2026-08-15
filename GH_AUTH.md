@@ -12,7 +12,7 @@
 - **macOS**: กด `Cmd + Space` พิมพ์ `Terminal` กด Enter
 - **Windows**: เปิด **Windows Terminal** แล้วเลือกแท็บ **Ubuntu**
   (ต้องติดตั้ง WSL2 + Ubuntu ตาม [WSL.md](WSL.md) ก่อน) —
-  **ห้ามใช้ PowerShell** คำสั่งทั้งหมดในเอกสารนี้พิมพ์ใน Ubuntu shell
+  **คำสั่งทั้งหมดในเอกสารนี้พิมพ์ในแท็บ Ubuntu เท่านั้น**
 - **Ubuntu/Linux**: กด `Ctrl + Alt + T`
 
 พิมพ์คำสั่งทีละบรรทัด กด Enter แล้วรอให้ขึ้นบรรทัดใหม่ก่อนพิมพ์คำสั่งถัดไป
@@ -118,7 +118,7 @@ github.com
 | อาการที่เห็น | สาเหตุที่พบบ่อย | ทำอย่างไร |
 |---|---|---|
 | `gh: command not found` หลังติดตั้ง | terminal เก่ายังไม่รู้จักคำสั่งใหม่ | ปิด terminal เปิดใหม่ ลอง `gh --version` อีกครั้ง |
-| `command not found` บน Windows | พิมพ์ใน PowerShell ไม่ใช่ Ubuntu | เปิด Windows Terminal เลือกแท็บ **Ubuntu** แล้วทำขั้นที่ 2 ใหม่ในนั้น |
+| `command not found` บน Windows | ไม่ได้พิมพ์ในแท็บ Ubuntu | เปิด Windows Terminal เลือกแท็บ **Ubuntu** แล้วทำขั้นที่ 2 ใหม่ในนั้น |
 | กด Enter แล้ว browser ไม่เปิด (พบบ่อยใน WSL) | terminal เรียก browser ของ Windows ไม่ได้ | ไม่เป็นปัญหา — เปิด browser เองไปที่ `https://github.com/login/device` แล้ววางรหัสจากจอ terminal |
 | หน้า device ขึ้นว่า code หมดอายุ | รอนานเกินก่อนวางรหัส | รัน `gh auth login` ใหม่ ได้รหัสใหม่ |
 | Browser login ไม่ผ่าน ติด 2FA/verify | GitHub บังคับยืนยันเพิ่มเติม | ทำตามที่หน้าเว็บบอกให้จบใน browser ก่อน (ผูก authenticator หรือ email code) แล้วค่อยกลับมา `gh auth login` |
