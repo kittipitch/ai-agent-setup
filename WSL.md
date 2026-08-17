@@ -122,13 +122,26 @@ nano "$HOME_DIR/.wslconfig"
 
 เพิ่มข้อมูลต่อไปนี้ (ปรับค่าตามสเปคเครื่อง):
 
+**เครื่องสเปคดี (RAM 16GB ขึ้นไป):**
+
 ```ini
 [wsl2]
 memory=8GB
 processors=4
 ```
 
-> **หมายเหตุ**: `memory` คือ RAM สูงสุดที่ WSL ใช้ได้, `processors` คือจำนวน CPU cores; ถ้าเครื่อง RAM น้อยมากค่อยลดเป็น `memory=2GB` เป็น fallback แต่ Claude Code ต้องการ RAM 4GB+ จึงไม่ควรจำกัด WSL ต่ำเกินไป
+**เครื่องสเปคต่ำ (RAM 8GB) — ตั้งขั้นต่ำเท่านี้:**
+
+```ini
+[wsl2]
+memory=3GB
+processors=2
+```
+
+> **หมายเหตุ**: `memory` คือ RAM สูงสุดที่ WSL ใช้ได้, `processors` คือจำนวน CPU cores
+> ขั้นต่ำสำหรับให้ Claude Code ทำงานใน Workshop นี้คือ **RAM 3GB และ 2 cores** อย่าตั้งต่ำกว่านี้
+> (ต่ำกว่านี้ `claude`, `bun install`, และ Node hooks จะช้าหรือค้าง) ถ้าเครื่อง RAM มากกว่านี้
+> ตั้งให้สูงขึ้นได้ตามสัดส่วน แต่เว้น RAM ไว้ให้ Windows อย่างน้อย 4-5GB
 
 หลังจากแก้ไขให้รีสตาร์ท WSL:
 ```powershell
